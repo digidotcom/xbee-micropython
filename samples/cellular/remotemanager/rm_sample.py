@@ -17,9 +17,9 @@ Instructions:
 from remotemanager import RemoteManagerConnection
 
 credentials = {'username': "FILL_ME_IN", 'password': "FILL_ME_IN"}
-rm = RemoteManagerConnection(creds)
+rm = RemoteManagerConnection(credentials=credentials)
 
-def datastream_test(streamID="SampleStreem", creds=credentials):
+def datastream_test(streamID="SampleStreem"):
     stream_info = {"description": "sample stream",
                    "id": streamID,
                    "type": "DOUBLE"}

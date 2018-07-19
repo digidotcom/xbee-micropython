@@ -19,13 +19,13 @@ STREAMS_URI = "https://remotemanager.digi.com/ws/v1/streams/"
 
 class RemoteManagerConnection:
 
-    def __init__(self, auth_scheme="Basic", **credentials):
+    def __init__(self, credentials, auth_scheme="Basic"):
         if not credentials:
             self.auth = None
         else:
-            self.set_auth(auth_scheme, **credentials)
+            self.set_auth(credentials, auth_scheme)
 
-    def set_auth(self, auth_scheme="Basic", **credentials):
+    def set_auth(self, credentials, auth_scheme="Basic"):
         if auth_scheme == "Basic":
             self.auth = "Basic " + ubinascii.b2a_base64(credentials['username'] + ":" + credentials['password']).decode().strip()
         elif auth_scheme == "Bearer":
