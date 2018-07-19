@@ -1,0 +1,9 @@
+# ignore files created by PyCharm
+.idea
+
+# ignore files created by running local Python
+__pycache__/
+*.py[cod]
+
+# ignore any cross-compiled files
+*.mpy

@@ -1,0 +1,41 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "iot:Connect",
+      "Resource": "*",
+      "Condition": {
+        "Bool": {
+          "iot:Connection.Thing.IsAttached": [
+            "true"
+          ]
+        },
+        "StringEquals": {
+          "iot:ClientId": "${iot:Connection.Thing.ThingName}"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iot:Publish",
+        "iot:Receive"
+      ],
+      "Resource": [
+        "arn:aws:iot:us-east-1:123456789012:topic/${iot:Connection.Thing.ThingTypeName}/${iot:Connection.Thing.ThingName}",
+        "arn:aws:iot:us-east-1:123456789012:topic/${iot:Connection.Thing.ThingTypeName}/${iot:Connection.Thing.ThingName}/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iot:Subscribe"
+      ],
+      "Resource": [
+        "arn:aws:iot:us-east-1:123456789012:topicfilter/${iot:Connection.Thing.ThingTypeName}/${iot:Connection.Thing.ThingName}",
+        "arn:aws:iot:us-east-1:123456789012:topicfilter/${iot:Connection.Thing.ThingTypeName}/${iot:Connection.Thing.ThingName}/*"
+      ]
+    }
+  ]
+}
