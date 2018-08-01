@@ -44,6 +44,11 @@ on your computer via [`mpy-cross`][mpy-cross] and then upload the resultant
 `import` a module into your program, which requires less space in
 MicroPython's limited heap.
 
+You should pass `-mno-unicode` and `-msmall-int-bits=31` to `mpy-cross` when
+cross-compiling for the XBee Cellular Modem:
+
+    python -m mpy_cross -mno-unicode -msmall-int-bits=31 filename.py
+
 Most of the samples work with the MicroPython REPL's "paste mode":
 
   * Open a sample in your favorite text or Python editor.
