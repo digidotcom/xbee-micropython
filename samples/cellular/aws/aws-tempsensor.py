@@ -10,13 +10,15 @@ Hardware required:
 Instructions:
  - Ensure that the umqtt/simple.py and hdc1080 modules are in
    the /flash/lib directory on the XBee Filesystem
+ - Ensure that the SSL certificate files are in the /flash/cert directory
+   on the XBee Filesystem
+    - "ssl_params" shows which ssl parameters are required, and gives
+     examples for referencing the files
+    - If needed, replace the file paths to match the certificates you're using
  - The policy attached to the SSL certificates must allow for
    publishing, subscribing, connecting, and receiving
  - The host and region need to be filled in to create
    a valid AWS endpoint to connect to
- - "ssl_params" shows which ssl parameters are required, and gives
-   examples for referencing the files
-    - Be sure to replace the file paths to match the certificates you're using
  - Send this code to your XBee module using paste mode (CTRL-E)
 
 Use:
@@ -40,16 +42,22 @@ Use:
 from umqtt.simple import MQTTClient
 from sensor.hdc1080 import HDC1080
 from machine import I2C
-import time, ujson
+import time, ujson, network
 
 # AWS endpoint parameters
-host = b'FILL_ME_IN'  # ex: b'a1p3gcs127hy79'
-region = b'FILL_ME_IN'  # ex: b'us-east-2'
+host = b'FILL_ME_IN'  # ex: b'abcdefg1234567'
+region = b'FILL_ME_IN'  # ex: b'us-east-1'
 
 aws_endpoint = b'%s.iot.%s.amazonaws.com' % (host, region)
-ssl_params = {'keyfile': "cert/aws.key",
-              'certfile': "cert/aws.crt",
-              'ca_certs': "cert/aws.ca"}  # ssl certs
+ssl_params = {'keyfile': "/flash/cert/aws.key",
+              'certfile': "/flash/cert/aws.crt",
+              'ca_certs': "/flash/cert/aws.ca"}  # ssl certs
+
+conn = network.Cellular()
+while not conn.isconnected():
+    print("waiting for network connection...")
+    time.sleep(4)
+print("network connected")
 
 threshold_temp = 80.0
 wait_timer = 10
