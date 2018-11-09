@@ -137,8 +137,9 @@ class FTP:
         host, port = parse227(self.sendcmd('PASV'))
         return host, port
 
-    def transfercmd(self, cmd, fp=None, callback=print, blocksize=MAXLINE, rest=None):
+    def transfercmd(self, cmd, fp=None, callback=None, blocksize=MAXLINE, rest=None):
         host, port = self.makepasv()
+        cmd_prefix = cmd[:4]
         conn = self._create_connection((host, port), self.timeout)
         try:
             if rest is not None:
@@ -149,27 +150,29 @@ class FTP:
                 resp = self.getresp()
             if resp[0] != '1':
                 raise ReplyError(resp)
+            while 1:
+                if cmd_prefix in ['STOR']:
+                    data = fp.read(blocksize)
+                elif cmd_prefix in ['LIST', 'RETR', 'NLST']:
+                    data = conn.recv(blocksize)
+                else:
+                    raise ValueError('Unknown Command')
+                if not data:
+                    break
+                if cmd_prefix in ['STOR']:
+                    conn.send(data)
+                if callback:
+                    callback(data)
         except:
             conn.close()
             raise
-        while 1:
-            if 'STOR' in cmd:
-                data = fp.read(blocksize)
-            elif 'LIST' in cmd or 'RETR' in cmd or 'NLST' in cmd:
-                data = conn.recv(blocksize)
-            else:
-                raise ValueError('Unknown Command')
-            if not data:
-                break
-            if 'STOR' in cmd:
-                conn.send(data)
-            callback(data)
         conn.close()
         return self.voidresp()
 
     def stor(self, localname, remotename=None, **kw):
         remotename = localname if not remotename else remotename
-        return self.transfercmd('STOR ' + remotename, fp=open(localname, 'rb'), **kw)
+        with open(localname, 'rb') as fp:
+            return self.transfercmd('STOR ' + remotename, fp=fp, **kw)
 
     def retr(self, filename, **kw):
         return self.transfercmd('RETR ' + filename, **kw)
