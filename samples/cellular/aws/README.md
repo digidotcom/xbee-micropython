@@ -57,10 +57,20 @@ Create a "Thing" on AWS IoT
 
 5. You'll also need a CA for AWS IoT (this file should be identical for all
    devices you connect to your account).  Be sure to download it before
-   activating your device.
+   activating your device. Note that Amazon now recommends using Amazon
+   Trust Service endpoints and recommend using intermediate Root CAs. 
+   Some modules like the LTE-M only work with the originating end of chain 
+   Root CA so you will need to use that one instead. Specifically, for ATS
+   endpoints* we recommend that you use the Starfield Services Root Certificate
+   from https://www.amazontrust.com/repository/.
 
 6. Attach the policy you previously created, and that completes the activation
    process.
+   
+* ATS endpoints include '-ats' as part of the hostname. ATS endpoint
+  <host_prefix>-ats.iot.<aws_region>.amazonaws.com where <host_prefix>-ats is 
+  the full hostname and <aws_region> is the region of your endpoint. Legacy
+  endpoints omit the -ats postfix string.
 
 
 Install the certificates on XBee Cellular
@@ -77,13 +87,18 @@ names in the included samples):
 |----------------------------------------------------------|----------------|
 | 01234abcde-certificate.pem.crt                                 | aws.crt  |
 | 01234abcde-private.pem.key                                     | aws.key* |
-| VeriSign-Class 3-Public-Primary-Certification-Authority-G5.pem | aws.ca   |
+| VeriSign-Class 3-Public-Primary-Certification-Authority-G5.pem | aws.ca** |
+
 
 Use XCTU or ATFS commands in a terminal emulator to upload the three files
 to the `cert/` directory on your XBee.
 
 *For security, you should upload the `aws.key` as a secure file (using
 `ATFS XPUT`).
+
+**Note the Verisign certificate is now considered legacy by Amazon. It is recommended
+to use the Starfield Services Root Certificate from 
+https://www.amazontrust.com/repository/.
 
 
 Test the Certificates
