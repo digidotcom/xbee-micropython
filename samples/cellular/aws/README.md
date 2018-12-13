@@ -67,10 +67,10 @@ Create a "Thing" on AWS IoT
 6. Attach the policy you previously created, and that completes the activation
    process.
    
-* ATS endpoints include '-ats' as part of the hostname. ATS endpoint
-  <host_prefix>-ats.iot.<aws_region>.amazonaws.com where <host_prefix>-ats is 
-  the full hostname and <aws_region> is the region of your endpoint. Legacy
-  endpoints omit the -ats postfix string.
+*ATS endpoints include '-ats' as part of the hostname. ATS endpoint
+<host_prefix>-ats.iot.<aws_region>.amazonaws.com where <host_prefix>-ats is 
+the full hostname and <aws_region> is the region of your endpoint. Legacy
+endpoints omit the -ats postfix string.
 
 
 Install the certificates on XBee Cellular
