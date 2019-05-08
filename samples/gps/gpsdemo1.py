@@ -111,7 +111,7 @@ def initialize():
 
     wait_for_connection()
     device_im = xbee.atcmd("IM")
-    im = device_im[-8:] + "-" + device_im[:7]
+    im = device_im[:7] + "-" + device_im[-8:]
     mydevid = "00010000-00000000-0" + im + "/"
     print("Device ID = "+mydevid)
 
