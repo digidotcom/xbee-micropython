@@ -1,0 +1,23 @@
+<platforms>
+    <platform id="Digi XBee3 Zigbee 3">
+        <icon>xbee3_rf.png</icon>
+    </platform>
+    <platform id="Digi XBee3 802.15.4">
+        <icon>xbee3_rf.png</icon>
+    </platform>
+    <platform id="Digi XBee3 DigiMesh 2.4">
+        <icon>xbee3_rf.png</icon>
+    </platform>
+    <platform id="Digi XBee3 Cellular LTE-M/NB-IoT">
+        <icon>xbee3_cellular.png</icon>
+    </platform>
+    <platform id="Digi XBee3 Cellular LTE Cat 1">
+        <icon>xbee3_cellular.png</icon>
+    </platform>
+    <platform id="Digi XBee Cellular 3G">
+        <icon>xbee_cellular_3g.png</icon>
+    </platform>
+    <platform id="Digi XBee Cellular LTE Cat 1">
+        <icon>xbee_cellular.png</icon>
+    </platform>
+</platforms>
