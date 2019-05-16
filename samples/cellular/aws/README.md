@@ -96,14 +96,14 @@ to the `cert/` directory on your XBee.
 *For security, you should upload the `aws.key` as a secure file (using
 `ATFS XPUT`).
 
-**Note the Verisign certificate is now considered legacy by Amazon. It is recommended
-to use the Starfield Services Root Certificate from 
+**Note the Verisign certificate is now considered legacy by Amazon. It is
+recommended to use the Starfield Services Root Certificate from 
 https://www.amazontrust.com/repository/.
 
 
 Test the Certificates
 ---------------------
-Update the [HTTPS Sample](./aws-https.py) with details on your Thing and use
+Update the [HTTPS Sample](aws_https/main.py) with details on your Thing and use
 it to test the certificates you uploaded.  All samples will use the same
 settings so you can easily paste your configuration to the top of each sample.
 
@@ -136,7 +136,7 @@ connection: keep-alive
 
 Publish to a topic
 ------------------
-Use the [Publish Sample](./aws-publish.py) to publish data to an MQTT topic.
+Use the [Publish Sample](aws_publish/main.py) to publish data to an MQTT topic.
 Remember to update the configuration section of the sample with values that
 match your account/Thing.
 
@@ -150,7 +150,7 @@ your Thing makes an MQTT connection and then disconnects.
 
 Subscribe to a topic
 --------------------
-Use the [Subscribe Sample](./aws-subscribe.py) to monitor an MQTT topic that
+Use the [Subscribe Sample](aws_subscribe/main.py) to monitor an MQTT topic that
 you will push to from a separate MQTT client.
 
 View the sample for details on how to configure and use it.
@@ -158,8 +158,8 @@ View the sample for details on how to configure and use it.
 
 Publish and Subscribe
 ---------------------
-The [Temp Sensor Sample](./aws-tempsensor.py) integrates MQTT publishing and
-subscribing, in addition to using an HDC1080 I2C Temp & Humidity Sensor as the
-source for published data.
+The [Temp Sensor Sample](aws_temp_sensor/main.py) integrates MQTT publishing
+and subscribing, in addition to using an HDC1080 I2C Temp & Humidity Sensor as
+the source for published data.
 
 View the sample for details on how to configure and use it.
