@@ -1,85 +1,92 @@
-MicroPython Modules and Samples for XBee Devices
-================================================
+MicroPython Resources for XBee Devices
+======================================
 
-This project contains modules and sample code for use on XBee devices
-with MicroPython.  [Digi International][Digi] manages the project on
-GitHub as [xbee-micropython].
+This project contains modules and sample code for use on XBee devices with
+MicroPython. Digi has written some of the modules and samples, in addition to
+modifying existing code to address differences between the XBee and other
+MicroPython platforms. This project includes code from
+[micropython-lib][micropython-lib].
 
-Digi has written some of the modules and samples, in addition to modifying
-existing code to address differences between the XBee and other MicroPython
-platforms.  This project includes code from [micropython-lib].
+The repository is used by the **XBee MicroPython plugin for PyCharm** to
+get the available samples, libraries platforms and stubs and facilitate the
+process of creating and launching MicroPython applications in XBee devices.
+This means that you don't need to clone it unless you want to contribute
+with new content as the PyCharm plugin will handle all necessary resources
+automatically.
 
-Please use GitHub to open issues and submit pull requests with improvements
-or useful code to share with other users.
+We don't recommend you to do so, but you can still use the content of this
+repository to create XBee MicroPython applications by your own (without using
+the **XBee MicroPython plugin for PyCharm**). In any case, you will find
+information on how to get started with XBee and MicroPython in the
+[Digi MicroPython Programming Guide][doc].
 
-[Digi]: http://www.digi.com
-[xbee-micropython]: https://github.com/digidotcom/xbee-micropython
-[micropython-lib]: https://github.com/micropython/micropython-lib
+[Digi International][Digi] manages the project on GitHub as 
+[xbee-micropython][xbee-micropython].
 
 
 Requirements
 ------------
 
-The following XBee devices include support for MicroPython, but not
-a file system or modules:
+Modules and samples within the repository can be executed only in XBee
+devices with MicroPython support. This is the list of current compatible
+devices:
 
-  * XBee and XBee3 Cellular (firmware *07 and later)
-  * XBee3 Zigbee (firmware 1003 and later)
-
-The following XBee devices include file system and module support:
-
-  * XBee and XBee3 Cellular (firmware *0B and later)
-
-
-Installation
-------------
-
-Clone this repository onto a PC connected to the serial port of your XBee
-device.  Use the file manager of XCTU 6.4.0 (or later) on XBee/XBee3 Cellular
-devices with *0B firmware (or later) to upload modules to the file system.
-
-You may want to compile the modules after uploading (via `os.compile()`) or
-on your computer via [`mpy-cross`][mpy-cross] and then upload the resultant
-`.mpy` file.  Doing so eliminates `.py` parsing and compiling each time you
-`import` a module into your program, which requires less space in
-MicroPython's limited heap.
-
-You should pass `-mno-unicode` and `-msmall-int-bits=31` to `mpy-cross` when
-cross-compiling for the XBee Cellular Modem:
-
-    python -m mpy_cross -mno-unicode -msmall-int-bits=31 filename.py
-
-Most of the samples work with the MicroPython REPL's "paste mode":
-
-  * Open a sample in your favorite text or Python editor.
-  * Read the instructions in the opening comments of the sample.
-  * Copy code to your clipboard.
-  * In your serial terminal connected to the MicroPython REPL, press CTRL-E
-    to enter Paste Mode.
-  * Paste your code.
-  * Press CTRL-D to execute the code.
-
-[mpy-cross]: https://pypi.org/project/mpy-cross/
+* Digi XBee3 Zigbee 3 (firmware 1006 and later)
+* Digi XBee3 802.15.4 (firmware 2003 and later)
+* Digi XBee3 DigiMesh 2.4 (firmware 3002 and later)
+* Digi XBee3 Cellular LTE-M/NB-IoT (firmware 11410 and later)
+* Digi XBee3 Cellular LTE Cat 1 (firmware 31010 and later)
+* Digi XBee Cellular 3G (firmware 1130B and later)
+* Digi XBee Cellular LTE Cat 1 (firmware 100B and later)
 
 
 Organization
 ------------
 
-Files in the `lib` directory mirror the structure you'd use when uploading
-to the XBee device.  For example, `lib/umqtt/simple.py` is the correct
-location for `import umqtt.simple` to work in your program.
+The repository is structured in the following folders:
 
-Files in the `samples` directory are organized by feature or XBee device.
-For example, `cellular` contains samples for XBee/XBee3 Cellular devices,
-`zigbee` contains samples for XBee3 Zigbee devices, and `i2c` contains
-samples for any XBee device with I2C support in MicroPython.
+* **lib** - Files in the `lib/` directory mirror the structure you'd use when
+  uploading to the XBee device.  For example, `lib/umqtt/simple.py` is the
+  correct location for `import umqtt.simple` to work in your program.
+* **platforms** - This folder contains the definition and images for the 
+  Digi XBee products supporting MicroPython. This information is used by the
+  **Digi XBee MicroPython plugin for PyCharm** to list the supported platforms.
+* **samples** - Files in the `samples/` directory are organized by feature or
+  XBee device. For example, `cellular` contains samples for XBee3 Cellular
+  devices and `i2c` contains samples for any XBee device with I2C support in
+  MicroPython.
+* **typehints** - This folder contains the API definitions of the MicroPython
+  modules available in the XBee devices. These definitions are used by the
+  **Digi XBee MicroPython plugin for PyCharm** for syntax checking, code
+  completion and refactoring.
+
+
+Usage
+-----
+
+For information on how to get started with XBee and MicroPython, see the
+[Digi MicroPython Programming Guide][doc].
+
+
+How to Contribute
+-----------------
+The contributing guidelines are in the [CONTRIBUTING.md](CONTRIBUTING.md)
+document.
 
 
 License
 -------
 
-This software is open-source software.  Copyright Digi International, 2018.
+This software is open-source software. Copyright Digi International, 2018,
+2019.
 
-Most of the Source Code in the lib/ directory is covered by the MIT License
-(see `LICENSE.txt`).  Individual files may contain alternate licensing,
-depending on their origin.
+Samples within `samples/` folder, stub files in `typehints/` folder and most of
+the source code in the `lib/` directory is covered by the
+[MIT License](LICENSE.txt). Individual library files may contain alternate
+licensing, depending on their origin.
+
+
+[Digi]: http://www.digi.com
+[xbee-micropython]: https://github.com/digidotcom/xbee-micropython
+[doc]: https://www.digi.com/resources/documentation/digidocs/90002219
+[micropython-lib]: https://github.com/micropython/micropython-lib
