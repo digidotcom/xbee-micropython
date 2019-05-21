@@ -7,7 +7,7 @@ modifying existing code to address differences between the XBee and other
 MicroPython platforms. This project includes code from
 [micropython-lib][micropython-lib].
 
-The repository is used by the **XBee MicroPython plugin for PyCharm** to
+The repository is used by the **Digi XBee MicroPython PyCharm Plugin** to
 get the available samples, libraries platforms and stubs and facilitate the
 process of creating and launching MicroPython applications in XBee devices.
 This means that you don't need to clone it unless you want to contribute
@@ -16,7 +16,7 @@ automatically.
 
 We don't recommend you to do so, but you can still use the content of this
 repository to create XBee MicroPython applications by your own (without using
-the **XBee MicroPython plugin for PyCharm**). In any case, you will find
+the **Digi XBee MicroPython PyCharm Plugin**). In any case, you will find
 information on how to get started with XBee and MicroPython in the
 [Digi MicroPython Programming Guide][doc].
 
@@ -50,15 +50,15 @@ The repository is structured in the following folders:
   correct location for `import umqtt.simple` to work in your program.
 * **platforms** - This folder contains the definition and images for the 
   Digi XBee products supporting MicroPython. This information is used by the
-  **Digi XBee MicroPython plugin for PyCharm** to list the supported platforms.
+  **Digi XBee MicroPython PyCharm Plugin** to list the supported platforms.
 * **samples** - Files in the `samples/` directory are organized by feature or
   XBee device. For example, `cellular` contains samples for XBee3 Cellular
   devices and `i2c` contains samples for any XBee device with I2C support in
   MicroPython.
 * **typehints** - This folder contains the API definitions of the MicroPython
   modules available in the XBee devices. These definitions are used by the
-  **Digi XBee MicroPython plugin for PyCharm** for syntax checking, code
-  completion and refactoring.
+  **Digi XBee MicroPython PyCharm Plugin** for syntax checking, code completion
+  and refactoring.
 
 
 Usage
