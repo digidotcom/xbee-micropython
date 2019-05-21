@@ -72,10 +72,11 @@ Required libraries
 
 > OPTIONAL
 >
-> This section is used by the **XBee MicroPython plugin for PyCharm** to import
-> the libraries required by the sample application once the sample is imported.
-> The content of the section is a list with the ID of required libraries from
-> the `lib` directory. ID must equal the name of the library folder.
+> This section is used by the **Digi XBee MicroPython PyCharm Plugin** to
+> import the libraries required by the sample application once the sample is
+> imported. The content of the section is a list with the ID of required
+> libraries from the `lib` directory. ID must equal the name of the library
+> folder.
 > 
 > You can remove this section if the sample does not require any library.
 > 

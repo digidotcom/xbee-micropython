@@ -64,7 +64,7 @@ there is not already a category that meets your needs.
   spaces. 
 * Each sample must include at least the following files inside its directory:
   * `README.md` This file describes the sample functionality, requirements,
-    setup, etc. and is used by the **XBee MicroPython plugin for PyCharm**
+    setup, etc. and is used by the **Digi XBee MicroPython PyCharm Plugin**
     to list the sample in the import samples wizard. For that reason, it must
     have a specific structure with required sections. You can copy and modify
     file [README_TEMPLATE.md](samples/README_TEMPLATE.md) from `samples/`
@@ -92,7 +92,7 @@ there is not already a category that meets your needs.
   and without blank spaces.
 * Each library must include at least the following files inside its directory:
   * `README.md` This file describes the library functionality and requirements
-    and is used by the **XBee MicroPython plugin for PyCharm** to list the
+    and is used by the **Digi XBee MicroPython PyCharm Plugin** to list the
     library when creating a new project. For that reason, it must have a
     specific structure with required sections. You can copy and modify file
     [README_TEMPLATE.md](lib/README_TEMPLATE.md) from `lib/` directory for
