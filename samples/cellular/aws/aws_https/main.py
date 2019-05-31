@@ -25,7 +25,7 @@ import ussl
 
 # AWS endpoint parameters.
 # TODO: replace with your account values.
-HOST = b'FILL_ME_IN'        # ex: b'abcdefg1234567'
+HOST = b'FILL_ME_IN'        # ex: b'abcdefg1234567-ats'
 REGION = b'FILL_ME_IN'      # ex: b'us-east-1'
 THING_NAME = b'FILL_ME_IN'  # ex: b'IMEI_12345'
 
