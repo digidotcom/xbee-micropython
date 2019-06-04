@@ -37,7 +37,7 @@ ds = Ds1621(i2c, DS1621_ADDR)
 
 # Read the temperature value.
 temp_c = ds.read_temperature()
-print("- Temperature: %.1f C (%.1f F)" % (temp_c, temp_c * 9 / 10 + 32))
+print("- Temperature: %.1f C (%.1f F)" % (temp_c / 2, temp_c * 9 / 10 + 32))
 
 # Configure the high temperature value register.
 print("- Setting high temperature register to '22'... ", end="")
