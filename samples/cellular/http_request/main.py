@@ -47,7 +47,7 @@ try:
     # Connect to the host using the port 80 (HTTP).
     s.connect((host, 80))
 
-    request = bytes("GET /%s HTTP/1.1\r\nHost: %s...\r\n\r\n" % (path, host), "utf8")
+    request = bytes("GET /%s HTTP/1.1\r\nHost: %s\r\n\r\n" % (path, host), "utf8")
     print("Requesting /%s from host %s\n" % (path, host))
 
     # Send the HTTP request.
