@@ -30,7 +30,7 @@ PROFILE_DIGI_XBEE: int = ...
 PIN_WAKE: int = ...
 RTC_WAKE: int = ...
 
-def atcmd(cmd: str, value: Optional[Any]) -> Optional[Any]:
+def atcmd(cmd: str, value: Optional[Any] = None) -> Optional[Any]:
     """
     Sets or queries an AT command on the XBee module.
 
@@ -193,7 +193,7 @@ class XBee:
         """
         ...
 
-    def atcmd(self, cmd: str, value: Optional[Any]) -> Optional[Any]:
+    def atcmd(self, cmd: str, value: Optional[Any] = None) -> Optional[Any]:
         """
         Sets or queries an AT command on the XBee3 RF Module.
 
