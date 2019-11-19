@@ -26,7 +26,7 @@ and all of its contents are new in the following firmware versions:
   * XBee3 Zigbee: version 1009
 """
 
-from typing import Any, ContextManager, Iterable, Optional
+from typing import Any, ContextManager, Iterable, List, Optional
 
 try:
     # Python 3.8 (and PyCharm 2019.2.5 and newer) support TypedDict,
