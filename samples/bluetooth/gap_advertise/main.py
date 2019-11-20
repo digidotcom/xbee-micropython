@@ -18,4 +18,27 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from . import ble, cloud
+from digi import ble
+
+
+def form_mac_address(addr: bytes) -> str:
+    return ":".join('{:02x}'.format(b) for b in addr)
+
+# Form an advertisement payload with a local name
+def form_adv_name(name):
+    payload = bytearray()
+    payload.append(len(name) + 1)
+    payload.append(0x08)
+    payload.extend(name.encode())
+    return payload
+
+
+# Turn on Bluetooth
+ble.active(True)
+print("Started Bluetooth with address of: {}".format(form_mac_address(ble.config("mac"))))
+
+payload = form_adv_name("My custom advertisement name")
+
+print("Advertising payload: {}".format(payload))
+# Advertise the new local name with an interval of 100000 microseconds (0.1 seconds).
+ble.gap_advertise(100000, payload)

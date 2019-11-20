@@ -18,4 +18,32 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from . import ble, cloud
+from digi import ble
+
+
+def form_mac_address(addr: bytes) -> str:
+    return ":".join('{:02x}'.format(b) for b in addr)
+
+# Turn on Bluetooth
+ble.active(True)
+print("Started Bluetooth with address of: {}".format(form_mac_address(ble.config("mac"))))
+
+scanner = None
+try:
+    # Start a scan to run for 30 seconds
+    scanner = ble.gap_scan(30000, interval_us=50000, window_us=50000)
+    # Loop through all advertisements until the scan has stopped.
+    for adv in scanner:
+        print(adv)
+finally:
+    if scanner is not None:
+        scanner.stop()
+
+# Scan with a context manager this time.
+with ble.gap_scan(30000, interval_us=50000, window_us=50000) as scanner:
+    # Loop through the available advertisements, blocking if there are none. Exits when the scan stops.
+    for adv in scanner:
+        print(adv)
+
+    # Leaving the context would automatically end the scan by an implicit scanner.stop()
+
