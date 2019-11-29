@@ -37,6 +37,11 @@ Once the following is printed:
 The XBee is sending out advertisements containing Eddystone beacons.
 They will be also be printed out as they are advertised.
 
+Required libraries
+--------------------
+
+* eddystonebeacon
+
 Supported platforms
 -------------------
 

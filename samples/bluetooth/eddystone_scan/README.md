@@ -40,6 +40,11 @@ Once the following is printed:
 The XBee is scanning for advertisements to pass off to the Eddystone parser.
 They will be parsed and its information will be printed out.
 
+Required libraries
+--------------------
+
+* eddystonebeacon
+
 Supported platforms
 -------------------
 
