@@ -42,6 +42,11 @@ Once the following is printed:
 `Started Bluetooth with address of: xx:xx:xx:xx:xx:xx`
 The XBee is sending out advertisements containing iBeacon frames.
 
+Required libraries
+--------------------
+
+* iBeacon
+
 Supported platforms
 -------------------
 

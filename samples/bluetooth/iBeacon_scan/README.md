@@ -45,6 +45,11 @@ Once the following is printed:
 The XBee is scanning for advertisements to pass off to the iBeacon parser.
 They will be parsed and its information will be printed out.
 
+Required libraries
+--------------------
+
+* iBeacon
+
 Supported platforms
 -------------------
 
