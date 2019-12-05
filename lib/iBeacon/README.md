@@ -1,14 +1,12 @@
-#
-# DEVELOPER IS RESPONSIBLE FOR OBTAINING THE NECESSARY LICENSES FROM APPLE.
-#
-# iBeacon(TM) is a trademark of Apple Inc. and use of this code must comply with
-# their licence.
-#
-
-iBeacon Library
-======================================
+iBeacon Library (SEE LICENSE NOTICE)
+====================================
 
 MicroPython library for creating and parsing iBeacon frames.
+
+**DEVELOPER IS RESPONSIBLE FOR OBTAINING THE NECESSARY LICENSES FROM APPLE.
+iBeacon(TM) is a trademark of Apple Inc. and use of this code must comply with
+their licence.**
+
 
 Supported platforms
 -------------------
