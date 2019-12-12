@@ -1,18 +1,16 @@
-#
-# DEVELOPER IS RESPONSIBLE FOR OBTAINING THE NECESSARY LICENSES FROM APPLE.
-#
-# iBeacon(TM) is a trademark of Apple Inc. and use of this code must comply with
-# their licence.
-#
-
-Bluetooth iBeacon Advertise Sample Application
-================================================
+Bluetooth iBeacon Advertise Sample Application (SEE LICENSE NOTICE)
+==============================================
 
 This example demonstrates the usage of the XBee's BLE advertise feature.
 The example forms and advertises iBeacon frames.
 
 The example first turns on Bluetooth and prints out its MAC address.
 It periodically advertises iBeacon for some time and then stops advertising.
+
+**DEVELOPER IS RESPONSIBLE FOR OBTAINING THE NECESSARY LICENSES FROM APPLE.
+iBeacon(TM) is a trademark of Apple Inc. and use of this code must comply with
+their licence.**
+
 
 Requirements
 ------------
