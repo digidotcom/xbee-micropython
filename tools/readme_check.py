@@ -33,7 +33,6 @@ which can be installed using pip:
 """
 
 import argparse
-import io
 import traceback
 from pathlib import Path
 from typing import List
