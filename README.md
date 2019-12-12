@@ -60,6 +60,12 @@ The repository is structured in the following folders:
   **Digi XBee MicroPython PyCharm Plugin** for syntax checking, code completion
   and refactoring.
 
+Other folders that appear in the repository include:
+
+* **tools** - Scripts and other resources which serve useful purposes for
+  contributors to the repository, such as a tool to check that all
+  README.md files are formatted as expected.
+
 
 Usage
 -----
