@@ -1,12 +1,5 @@
-#
-# DEVELOPER IS RESPONSIBLE FOR OBTAINING THE NECESSARY LICENSES FROM APPLE.
-#
-# iBeacon(TM) is a trademark of Apple Inc. and use of this code must comply with
-# their licence.
-#
-
-Bluetooth iBeacon Scan Sample Application
-===========================================
+Bluetooth iBeacon Scan Sample Application (SEE LICENSE NOTICE)
+=========================================
 
 This example demonstrates the usage of the XBee's BLE scanning feature.
 The example scans for advertisements and attempts to parse any incoming
@@ -15,6 +8,11 @@ iBeacon frames.
 The example first turns on Bluetooth and prints out its MAC address.
 It sets up a scanner to run for 30 seconds, receiving advertisements.
 Any received iBeacon advertisements are parsed and printed out.
+
+**DEVELOPER IS RESPONSIBLE FOR OBTAINING THE NECESSARY LICENSES FROM APPLE.
+iBeacon(TM) is a trademark of Apple Inc. and use of this code must comply with
+their licence.**
+
 
 Requirements
 ------------
