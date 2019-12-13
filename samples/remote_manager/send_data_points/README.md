@@ -45,7 +45,7 @@ Remote Manager account:
    https://remotemanager.digi.com/login.do
 2. Within the Digi Remote Manager platfotm, go to the **Data Services** tab
    and select the **Data Streams** option.
-3. Look for the stream **<device_id>/mp_xbee_temperature** where `<device_id>`
+3. Look for the stream **`<device_id>`/mp_xbee_temperature** where `<device_id>`
    is the ID of your XBee3 cellular device within your account.
 4. Select the stream and verify the chart displays the temperature of the
    module as it is being sent.
