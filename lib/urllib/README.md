@@ -3,7 +3,10 @@ urllib Library
 
 urllib routines.
 
-This library exists to provide support for Microsoft Azure.
+NOTE: The lib/urllib/parse.py is a stripped down copy of the
+Python 3 urllib/parse.py library.  It consists of just the
+functions/defines/etc that are required to interface with
+Microsoft Azure.
 
 Supported platforms
 -------------------

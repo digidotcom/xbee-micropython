@@ -9,13 +9,6 @@ by feature or functionality.
 **Digi XBee MicroPython PyCharm Plugin** uses this folder to list and import
 libraries when creating a new project.
 
-
-NOTE: The lib/urllib/parse.py is a stripped down copy of the
-Python 3 urllib/parse.py library.  It consists of just the
-functions/defines/etc that are required to interface with
-Microsoft Azure.
-
-
 Contributing
 ------------
 
