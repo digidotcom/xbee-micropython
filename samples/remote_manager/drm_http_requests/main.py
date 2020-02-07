@@ -92,7 +92,7 @@ else:
 while True:
     temperature = int(xbee.atcmd('TP') * 9.0 / 5.0 + 32.0)
     print("- Uploading datapoint to datastream '%s'... " % STREAM_ID, end="")
-    if create_datastream(STREAM_ID, STREAM_DESC, STREAM_TYPE, STREAM_UNITS):
+    if upload_datapoint(STREAM_ID, temperature):
         print("[OK]")
     else:
         print("[ERROR]")
