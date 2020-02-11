@@ -83,13 +83,28 @@ def scan_readme_file(
         return
 
     for platform in supported_platforms:
-        platform_name, _ = platform.text.split(MIN_FW, 1)
+        platform_name, min_version = platform.text.split(MIN_FW, 1)
         name = platform_name.strip()
         if name not in recognized_platforms:
             print(f"ERROR ({readme}): Unrecognized platform: {name}") 
 
             # See if we can hint at a correction.
             suggest_matches(name, recognized_platforms)
+
+        min_version = min_version.strip()
+        min_version_to_parse = min_version
+        if min_version.startswith('x'):
+            # Wildcard version syntax, e.g. x15.
+            min_version_to_parse = '0' + min_version
+
+        try:
+            # Check that the minimum version number parses as a hex number.
+            int(min_version_to_parse, 16)
+        except ValueError:
+            print(
+                f"ERROR ({readme}): "
+                f"Unparseable minimum firmware: {min_version!r}"
+            )
 
 
 def scan_readme_files_in_directory(

@@ -101,7 +101,7 @@ Supported platforms
 * Digi XBee3 802.15.4 - minimum firmware version: 2003
 * Digi XBee3 DigiMesh 2.4 - minimum firmware version: 3002
 * Digi XBee3 Cellular LTE-M/NB-IoT - minimum firmware version: 11410
-* Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: 31010
+* Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x10
 * Digi XBee Cellular 3G - minimum firmware version: 1130B
 * Digi XBee Cellular LTE Cat 1 - minimum firmware version: 100B
 
@@ -117,7 +117,7 @@ License
 > 
 > Example:
 
-Copyright (c) 2019, Digi International, Inc.
+Copyright (c) 2020, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

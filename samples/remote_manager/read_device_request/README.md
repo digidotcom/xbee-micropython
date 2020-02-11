@@ -89,7 +89,7 @@ Supported platforms
 -------------------
 
 * Digi XBee3 Cellular LTE-M/NB-IoT - minimum firmware version: 11411
-* Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: 31011
+* Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x11
 
 License
 -------
