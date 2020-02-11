@@ -1,4 +1,4 @@
-# Copyright (c) 2019, Digi International, Inc.
+# Copyright (c) 2020, Digi International, Inc.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -18,7 +18,23 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from typing import Any, Optional, Tuple
+from typing import Any, Dict, Optional, Tuple, Callable
+
+try:
+    # Python 3.8 (and PyCharm 2019.2.5 and newer) support TypedDict,
+    # which means the _GAPScanDict type can actually provide useful hints.
+    # (PyCharm issue PY-36008.)
+    # In case the PyCharm installation being used does not have TypedDict defined,
+    # fall back to using just a regular dict type.
+
+    from typing import TypedDict
+    class _SMSDict(TypedDict):
+        message: str
+        sender: str
+        timestamp: int
+except ImportError:
+    from typing import Dict
+    _SMSDict = Dict
 
 
 class Cellular:
@@ -105,6 +121,30 @@ class Cellular:
         """
         ...
 
+    def sms_callback(self, callback: Optional[Callable[[_SMSDict], Any]], /) -> None:
+        """
+        Register a callback method that is called whenever an SMS message is
+        received.
+
+        This callback takes one parameter, a dictionary with the following
+        keys:
+
+            * ``message`` - The message text, which is converted to a 7-bit
+              ASCII with extended Unicode characters changed to spaces.
+            * ``sender`` - The phone number from which the message was sent.
+            * ``timestamp`` - The number of seconds since 1/1/2000, which is
+              passed to ``time.localtime()`` and then converted into a tuple
+              of datetime elements.
+
+        **Note:** This is only available on XBee 3 Cellular products with
+        firmware ending in 15 or newer.
+
+        :param callback: A function that is called whenever an SMS is received.
+            If ``callback`` is None, the registered callback will be
+            unregistered, allowing for polling of sms_receive again.
+        """
+        ...
+
     def sms_receive(self) -> Optional[dict]:
         """
         Returns the latest SMS message received or ``None`` if there is no
@@ -142,5 +182,49 @@ class Cellular:
             should be sent. This variable can be a string or an integer.
         :param message: The contents of the message. The message should be a
             string or a bytes object of 7-bit ASCII characters.
+        """
+        ...
+
+    def shutdown(self, reset: bool = False) -> None:
+        """
+        Cleanly shuts down the cellular component. After the shutdown process
+        is complete, you can safely remove power from the device.
+
+        If the cellular component cannot be fully shut down within two minutes,
+        an OSError ETIMEDOUT will be raised.
+
+        ``shutdown()`` is equivalent to the **ATSD** command.
+
+        **Note:** This is only available on XBee and XBee 3 Cellular products
+        with firmware ending in 15 or newer.
+
+        :param reset: If True, the device will automatically be rebooted after
+            the cellular component has been shut down (as if
+            ``machine.reset()`` was called).
+        :raises OSError ETIMEDOUT: Cellular component could not be shut down
+            within two minutes.
+        """
+        ...
+
+    def signal(self) -> Dict[str, float]:
+        """
+        Retrieve the current signal quality indicators available, as a
+        dictionary.
+
+        The maximum set of signal quality indicators are:
+
+        * ``rssi`` - Equivalent to the **ATDB** command.
+        * ``rsrp`` - Reference Signal Received Power. Equivalent to
+            the **ATSW** command. Not available on XBee Cellular 3G.
+        * ``rsrq`` - Reference Signal Received Quality. Equivalent to
+            the **ATSQ** command. Not available on XBee Cellular 3G.
+
+        **Note:** This is only available on XBee and XBee 3 Cellular products
+        with firmware ending in 15 or newer.
+
+        :returns: A dictionary whose keys are strings (signal quality indicator
+            name) and values are float.
+        :raises OSError ETIMEDOUT: Signal quality indicators could not be
+            retrieved within five seconds.
         """
         ...
