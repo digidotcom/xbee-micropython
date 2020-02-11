@@ -24,7 +24,7 @@ Provides access to Bluetooth Low Energy functionality.
 **Note**: Unless otherwise specified, the ``digi.ble`` module
 and all of its contents are new in the following firmware versions:
   * XBee3 Zigbee: version 1009
-  * XBee3 802.15.4: version 2007
+  * XBee3 802.15.4: version 200A
   * XBee3 Cellular LTE-M/NB-IoT: version 11415
   * XBee3 Cellular LTE Cat 1: version x15
 """
