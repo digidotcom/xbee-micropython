@@ -21,7 +21,8 @@
 import binascii
 from digi import ble
 
-# Change these two variables to your device's address and address type
+# Change these two variables to your device's address and address type.
+# The address and address type can be discovered using ble.gap_scan().
 REMOTE_ADDRESS = "00:0B:57:28:65:D0"
 address_type = ble.ADDR_TYPE_PUBLIC
 
