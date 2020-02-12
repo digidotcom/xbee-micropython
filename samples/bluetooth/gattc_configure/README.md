@@ -13,7 +13,7 @@ To run this example you need:
 
 * One XBee3 radio module with MicroPython support.
 * One carrier board for the radio module (XBIB-U-DEV or XBIB-C board).
-* A Silicon Labs Thunderboard React
+* A Silicon Labs [Thunderboard React](https://www.silabs.com/products/development-tools/thunderboard/thunderboard-react-kit-sensor-cloud-connectivity)
 
 Setup
 -----
@@ -29,12 +29,12 @@ Make sure the hardware is set up correctly:
 Run
 ---
 
-The example will need to be configured, enter the BLE address of the
-Thunderboard React board. The sample will make a connection to the
-Thunderboard and discover its I/O characteristics. It will then configure the
+The example needs to be configured. Enter the BLE address of the
+Thunderboard React. The sample makes a connection to the
+Thunderboard and discover its I/O characteristics. It then configures the
 Thunderboard to send a notification whenever either one of its buttons are
 pressed or released.
-After, compile and launch the application.
+After configuration, compile and launch the application.
 The sample starts out printing the target BLE address:
 `Attempting connection to: xx:xx:xx:xx:xx:xx`
 Once the connection is made a `connected` message will be printed.

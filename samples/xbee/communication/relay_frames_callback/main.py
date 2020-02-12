@@ -22,9 +22,9 @@ import time
 from xbee import relay
 
 INTERFACES = {
-    0x00: "Serial Port",
-    0x01: "Bluetooth",
-    0x02: "MicroPython"
+    relay.SERIAL: "Serial Port",
+    relay.BLUETOOTH: "Bluetooth",
+    relay.MICROPYTHON: "MicroPython"
 }
 
 def relay_frame_callback(relay_frame):
