@@ -16,7 +16,8 @@ To run this example you need:
 
 * One XBee3 radio module with MicroPython support.
 * One carrier board for the radio module (XBIB-C board).
-* The XCTU application (available at www.digi.com/xctu).
+* The XCTU application, version 6.4.2 or newer
+  (available at www.digi.com/xctu).
 * An Android or iOS device with the 'XBee BLE MicroPython' sample installed.
 
 
