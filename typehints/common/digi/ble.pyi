@@ -514,7 +514,7 @@ class UUID(Sized):
 
     The ``UUID`` class is new in the following firmware versions:
         * XBee3 Zigbee: version 100A
-        * XBee3 802.15.4: version 2004
+        * XBee3 802.15.4: version 200A
         * XBee3 Cellular LTE-M/NB-IoT: version 11415
         * XBee3 Cellular LTE Cat 1: version 31015
     """
@@ -1026,7 +1026,7 @@ def gap_connect(
 
     The ``gap_connect`` function is new in the following firmware versions:
         * XBee3 Zigbee: version 100A
-        * XBee3 802.15.4: version 2004
+        * XBee3 802.15.4: version 200A
         * XBee3 Cellular LTE-M/NB-IoT: version 11415
         * XBee3 Cellular LTE Cat 1: version 31015
 

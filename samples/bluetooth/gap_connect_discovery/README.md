@@ -25,8 +25,9 @@ Make sure the hardware is set up correctly:
 Run
 ---
 
-The example will need to be configured, Enter the BLE address and address type
-of the peripheral device. After, compile and launch the application.
+The example needs to be configured. Enter the BLE address and address type
+of the peripheral device. After configuration, compile and launch the
+application.
 The sample starts out printing the remote BLE address:
 `Attempting connection to: xx:xx:xx:xx:xx:xx`
 Once the connection is made a `connected` message will be printed followed by
@@ -85,7 +86,7 @@ Supported platforms
 * Digi XBee3 Cellular LTE-M/NB-IoT - minimum firmware version: 11415
 * Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x15
 * Digi XBee3 Zigbee 3 - minimum firmware version: 100A
-* Digi XBee3 802.15.4 - minimum firmware version: 2007
+* Digi XBee3 802.15.4 - minimum firmware version: 200A
 
 License
 -------

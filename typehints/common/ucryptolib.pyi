@@ -38,6 +38,9 @@ class aes:
         encryption or decryption. Running decrypt() operation after
         encrypt() or vice versa is not supported.
 
+        **Note:** This is only available on XBee and XBee 3 Cellular products
+        with firmware ending in 15 or newer.
+
         Parameters are:
 
         :param key:

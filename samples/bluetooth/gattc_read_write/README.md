@@ -28,12 +28,12 @@ Make sure the hardware is set up correctly:
 Run
 ---
 
-The example will need to be configured, Enter the BLE address of the
-Thunderboard React board. The sample will make a connection to the
+The example needs to be configured. Enter the BLE address of the
+Thunderboard React. The sample makes a connection to the
 Thunderboard and discover its temperature and IO characteristics.
-Using these characteristics, the sample will read the temperature
+Using these characteristics, the sample reads the temperature
 and toggle the LEDs on the Thunderboard on and off.
-After, compile and launch the application.
+After configuration, compile and launch the application.
 The sample starts out printing the remote BLE address:
 `Attempting connection to: xx:xx:xx:xx:xx:xx`
 Once the connection is made a `connected` message will be printed followed by

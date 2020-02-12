@@ -94,7 +94,9 @@ def test(vector):
         ciphertext = eng.encrypt(block[0])
         assert ciphertext == block[1]
 
-    # Get a new object for decrypting
+    # Get a new object for decrypting.
+    # (Each aes object can be used for either encrypting or decrypting,
+    # but not both.)
     eng = ucryptolib.aes(key, mode, initial)
     for block in blocks:
         plaintext = eng.decrypt(block[1])

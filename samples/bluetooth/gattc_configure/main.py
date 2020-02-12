@@ -37,7 +37,7 @@ def get_characteristics_from_uuids(connection, service_uuid, characteristic_uuid
     return []
 
 
-# Change these two variables to your devices address and address type.
+# Change these two variables to your device's address and address type.
 # This sample expects a Thunderboard React to be used.
 # The address and address type can be discovered using ble.gap_scan().
 THUNDERBOARD_ADDRESS = "00:0B:57:28:65:D0"
