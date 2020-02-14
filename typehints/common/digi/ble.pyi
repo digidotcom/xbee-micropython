@@ -516,7 +516,7 @@ class UUID(Sized):
         * XBee3 Zigbee: version 100A
         * XBee3 802.15.4: version 200A
         * XBee3 Cellular LTE-M/NB-IoT: version 11415
-        * XBee3 Cellular LTE Cat 1: version 31015
+        * XBee3 Cellular LTE Cat 1: version x15
     """
 
     def __init__(self, uuid: _UUIDValue, /) -> None:
@@ -1028,7 +1028,7 @@ def gap_connect(
         * XBee3 Zigbee: version 100A
         * XBee3 802.15.4: version 200A
         * XBee3 Cellular LTE-M/NB-IoT: version 11415
-        * XBee3 Cellular LTE Cat 1: version 31015
+        * XBee3 Cellular LTE Cat 1: version x15
 
     :param addr_type: The type of address contained in the ``address`` value.
         The possible values are defined as constants on the ``digi.ble`` module:

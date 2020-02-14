@@ -755,40 +755,40 @@ class UART(object):
         """
         ...
 
-    class WDT:
-        """Restarts the application when it does not indicate proper operation.
+class WDT:
+    """Restarts the application when it does not indicate proper operation.
 
-        Once started it cannot be stopped or reconfigured in any
-        way. After enabling, the application must "feed" the watchdog
-        periodically to prevent it from expiring and resetting the
-        system.
+    Once started it cannot be stopped or reconfigured in any
+    way. After enabling, the application must "feed" the watchdog
+    periodically to prevent it from expiring and resetting the
+    system.
 
     **Note**: Added and only supported as of the following product versions:
       * XBee3 Cellular LTE-M/NB-IoT: version 11415
       * XBee3 Cellular LTE Cat 1: version x15
+    """
+
+    def __init__(self,
+                    id: int = 0,
+                    timeout: int = 60000,
+                    response: int = SOFT_RESET) -> None:
+        """Create a WDT object and start it.
+
+        :param id: Must be zero
+
+        :param timeout: Time in milliseconds in which the watchdog
+        must be fed before it will fire.
+
+        :param response: Choices include:
+            * ``SOFT_RESET``: Reset only the MicroPython interpretor.
+            * ``HARD_RESET``: Reset the entire XBee.
+            * ``CLEAN_SHUTDOWN``: On the XBee3 Cellular products,
+                perform a clean shutdown of the cellular component and
+                then reset the entire XBee.
+
         """
+        ...
 
-        def __init__(self,
-                     id: int = 0,
-                     timeout: int = 60000,
-                     response: int = SOFT_RESET) -> None:
-            """Create a WDT object and start it.
-
-            :param id: Must be zero
-
-            :param timeout: Time in milliseconds in which the watchdog
-            must be fed before it will fire.
-
-            :param response: Choices include:
-                * ``SOFT_RESET``: Reset only the MicroPython interpretor.
-                * ``HARD_RESET``: Reset the entire XBee.
-                * ``CLEAN_SHUTDOWN``: On the XBee3 Cellular products,
-                  perform a clean shutdown of the cellular component and
-                  then reset the entire XBee.
-
-            """
-            ...
-
-        def feed() -> None:
-            """Resets the expiration timer to indicate proper operation."""
-            ...
+    def feed() -> None:
+        """Resets the expiration timer to indicate proper operation."""
+        ...
