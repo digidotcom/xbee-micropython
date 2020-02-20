@@ -45,6 +45,10 @@ Organization
 
 The repository is structured in the following folders:
 
+* **categories** - This folder contains the definition and images for the Digi
+  categories in which the different products supporting MicroPython are
+  organized. This information is used by the **Digi MicroPython PyCharm
+  Plugin** to filter the supported platforms.
 * **lib** - Files in the `lib/` directory mirror the structure you'd use when
   uploading to the XBee device.  For example, `lib/umqtt/simple.py` is the
   correct location for `import umqtt.simple` to work in your program.

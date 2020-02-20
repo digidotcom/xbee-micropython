@@ -1,0 +1,13 @@
+<categories>
+    <category id="xbee">
+        <name>XBee module</name>
+        <description>XBee 3 RF, XBee 3 Cellular and XBee Cellular modules with MicroPython support.</description>
+        <project_type>MicroPython</project_type>
+        <dest_path>/flash</dest_path>
+        <icon>category_xbee.png</icon>
+        <icon_selected>category_xbee_selected.png</icon_selected>
+        <documentation_url>https://www.digi.com/resources/documentation/digidocs/90002219</documentation_url>
+        <documentation_text>XBee MicroPython Help</documentation_text>
+        <documentation_description>Open the XBee MicroPython documentation</documentation_description>
+    </category>
+</categories>
