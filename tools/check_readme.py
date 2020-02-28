@@ -21,7 +21,8 @@
 
 """
 Python script to validate formatting and contents of README.md files
-for xbee-micropython samples and libraries.
+for xbee-micropython samples and libraries, and to ensure that sample
+application directories have the correct structure.
 
 This script requires Python 3.6+, and the Python-Markdown and lxml libraries,
 which can be installed using pip:
@@ -126,6 +127,33 @@ def scan_readme_files_in_directory(
             traceback.print_exc()
 
 
+def scan_sample_directory(sample_dir: Path) -> None:
+    """
+    Check the given sample directory for the correct sample application
+    structure (README.md and a main.py file).
+    """
+    if not (sample_dir / 'README.md').is_file():
+        print(f"WARNING ({sample_dir}): No README.md file")
+    if not (sample_dir / 'main.py').is_file():
+        print(f"ERROR ({sample_dir}): No main.py file")
+
+
+def check_samples_structure(directory: Path) -> None:
+    """
+    Check each directory to ensure that any apparent sample applications
+    follow the necessary structure (README.md and main.py).
+    """
+    if not directory.is_dir():
+        raise ValueError(f"{directory} is not a directory")
+
+    for pyfile in directory.rglob('*.py'):
+        if pyfile.is_file():
+            try:
+                scan_sample_directory(pyfile.parent)
+            except Exception:
+                traceback.print_exc()
+
+
 def _get_recognized_platforms(platforms_xml: Path) -> List[str]:
     """
     Parse the platforms.xml file and get all platform IDs (names).
@@ -170,4 +198,7 @@ if __name__ == "__main__":
 
     for directory in args.dirs:
         scan_readme_files_in_directory(directory.resolve(), platforms)
+
+        if directory.name == "samples":
+            check_samples_structure(directory.resolve())
 
