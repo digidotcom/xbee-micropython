@@ -52,6 +52,9 @@ with uio.open(LOG_FILE, mode="a") as log:
     stopped = False
     while not stopped:
         temperature = xbee.atcmd("TP")
+        # convert unsigned 16-bit value to signed temperature
+        if temperature > 0x7FFF:
+            temperature = temperature - 0x10000
         # Write the current temperature in the log file.
         dummy = log.write("Current temperature: %.1F C (%.1F F)\n" % (temperature, temperature * 9.0 / 5.0 + 32.0))
         # Wait 1 second until the next reading.

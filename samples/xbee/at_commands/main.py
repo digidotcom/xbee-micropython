@@ -35,6 +35,9 @@ print("Hardware version: " + hw_version)
 
 # Read the module's temperature.
 temperature = xbee.atcmd("TP")
+# convert unsigned 16-bit value to signed temperature
+if temperature > 0x7FFF:
+    temperature = temperature - 0x10000
 print("The XBee is %.1F C (%.1F F)" % (temperature, temperature * 9.0 / 5.0 + 32.0))
 
 # Configure the module's node identifier and read it.
