@@ -27,7 +27,7 @@ TYPE_TLM = 0x20
 _DEFAULT_FRAME = (
     b"\x02"      # Flags length
     b"\x01"      # Flags data type value
-    b"\x06"      # Flags data
+    b"\x00"      # Flags data
     b"\x03"      # Service UUID length
     b"\x03"      # Service UUID data type value
     b"\xAA\xFE"  # 16-bit Eddystone UUID
@@ -35,6 +35,9 @@ _DEFAULT_FRAME = (
     b"\x16"      # Service Data data type value
     b"\xAA\xFE"  # 16-bit Eddystone UUID
 )
+
+_FLAGS_INDEX = 2
+_DEFAULT_FLAGS = 0x06
 
 _LENGTH_INDEX = 7
 
@@ -60,8 +63,12 @@ def _check_for_valid_eddystone(frame, expected_len=None):
             # If All is well with this advertisement, continue.
             break
 
-    # All Eddystone advertisements have the same first 12 bytes (excluding the payload length byte)
-    if frame[:_LENGTH_INDEX] != _DEFAULT_FRAME[:_LENGTH_INDEX] or frame[8:11] != _DEFAULT_FRAME[8:11]:
+    # All Eddystone advertisements have the same first 12 bytes (excluding the payload length byte and data flags)
+    if (
+        frame[:_FLAGS_INDEX] != _DEFAULT_FRAME[:_FLAGS_INDEX] or
+        frame[_FLAGS_INDEX + 1:_LENGTH_INDEX] != _DEFAULT_FRAME[_FLAGS_INDEX + 1:_LENGTH_INDEX] or
+        frame[8:11] != _DEFAULT_FRAME[8:11]
+    ):
         return False
 
     return True
@@ -72,9 +79,10 @@ class _EddystoneGenericFrame(object):
     This class is a generic Advertising frame providing common functions, not to be instantiated.
     """
 
-    def __init__(self, eddystone_type, payload_len):
+    def __init__(self, eddystone_type, payload_len, data_flags):
         self._frame = bytearray()
         self._frame.extend(_DEFAULT_FRAME)
+        self._frame[_FLAGS_INDEX] = data_flags
         self._frame.append(eddystone_type)  # Eddystone type
         # Extends the frame to have payload_len number of zero bytes at the end
         self._frame += bytearray(payload_len)
@@ -133,8 +141,8 @@ class EddystoneURLFrame(_EddystoneGenericFrame):
         "https://",
     ]
 
-    def __init__(self, ranging_data, url):
-        super().__init__(eddystone_type=TYPE_URL, payload_len=3)
+    def __init__(self, ranging_data, url, data_flags=_DEFAULT_FLAGS):
+        super().__init__(eddystone_type=TYPE_URL, payload_len=3, data_flags=data_flags)
         self.ranging_data = ranging_data
         self.url = url
 
@@ -224,8 +232,8 @@ class EddystoneUIDFrame(_EddystoneGenericFrame):
     See https://github.com/google/eddystone/tree/master/eddystone-uid for format details.
     """
 
-    def __init__(self, ranging_data, uid):
-        super().__init__(eddystone_type=TYPE_UID, payload_len=19)
+    def __init__(self, ranging_data, uid, data_flags=_DEFAULT_FLAGS):
+        super().__init__(eddystone_type=TYPE_UID, payload_len=19, data_flags=data_flags)
         # A minimum viable UID frame is 19 bytes of zeros
         self.ranging_data = ranging_data
         self.uid = uid
@@ -273,8 +281,8 @@ class EddystoneTLMFrame(_EddystoneGenericFrame):
     See https://github.com/google/eddystone/blob/master/eddystone-tlm/tlm-plain.md for format details.
     """
 
-    def __init__(self, advertisement_count, time_sec, beacon_temperature=-128, battery_voltage=0):
-        super().__init__(eddystone_type=TYPE_TLM, payload_len=13)
+    def __init__(self, advertisement_count, time_sec, beacon_temperature=-128, battery_voltage=0, data_flags=_DEFAULT_FLAGS):
+        super().__init__(eddystone_type=TYPE_TLM, payload_len=13, data_flags=data_flags)
         self.battery_voltage = battery_voltage
         self.beacon_temperature = beacon_temperature
         self.advertisement_count = advertisement_count
