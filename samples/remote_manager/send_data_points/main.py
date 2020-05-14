@@ -36,7 +36,11 @@ while True:
 
     # Read the temperature every 5 seconds during a minute.
     for i in range(12):
-        temperature = int(xbee.atcmd('TP') * 9.0 / 5.0 + 32.0)
+        temperature = xbee.atcmd("TP")
+        # convert unsigned 16-bit value to signed temperature
+        if temperature > 0x7FFF:
+            temperature = temperature - 0x10000
+        temperature = int(temperature * 9.0 / 5.0 + 32.0)
         data.add(DATAPOINT_TEMPERATURE, temperature)
         time.sleep(5)
 

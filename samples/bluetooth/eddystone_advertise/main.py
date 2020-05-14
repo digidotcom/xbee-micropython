@@ -69,6 +69,9 @@ battery_voltage = 0
 while True:
     time_alive = time.ticks_diff(time.ticks_ms(), start_time) / 1000
     beacon_temperature = xbee.atcmd('TP')
+    # convert unsigned 16-bit value to signed beacon_temperature
+    if beacon_temperature > 0x7FFF:
+        beacon_temperature = beacon_temperature - 0x10000
     # If the %V command is supported (XBee 3 LTE-M) the following line can be uncommented.
     # battery_voltage = xbee.atcmd('%V') / 1000
 

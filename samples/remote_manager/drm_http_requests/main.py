@@ -90,7 +90,11 @@ else:
 
 # Start uploading temperature samples.
 while True:
-    temperature = int(xbee.atcmd('TP') * 9.0 / 5.0 + 32.0)
+    temperature = xbee.atcmd("TP")
+    # convert unsigned 16-bit value to signed temperature
+    if temperature > 0x7FFF:
+        temperature = temperature - 0x10000
+    temperature = int(temperature * 9.0 / 5.0 + 32.0)
     print("- Uploading datapoint to datastream '%s'... " % STREAM_ID, end="")
     if upload_datapoint(STREAM_ID, temperature):
         print("[OK]")
