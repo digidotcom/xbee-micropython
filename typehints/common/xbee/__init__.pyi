@@ -20,6 +20,7 @@
 
 from typing import Any, ContextManager, Iterator, Optional
 
+from . import modem_status
 
 ADDR_BROADCAST: bytes = ...
 ADDR_COORDINATOR: bytes = ...
