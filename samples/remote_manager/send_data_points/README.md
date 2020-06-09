@@ -12,7 +12,8 @@ Requirements
 
 To run this example you need:
 
-* One XBee3 cellular module with MicroPython support.
+* One XBee3 cellular module with MicroPython support, running firmware ending
+  in `*11` or newer.
 * One carrier board for the radio module (XBIB-U-DEV or XBIB-C board).
 * A Digi Remote Manager account with the XBee3 cellular device registered in.
 * The XCTU application (available at www.digi.com/xctu).
@@ -27,10 +28,6 @@ Make sure the hardware is set up correctly:
 2. Make sure the XBee3 cellular device is connected to Internet. To do so,
    verify that the Connection status LED is blinking or the value of the
    **AI** parameter is **0**.
-3. Make sure the XBee3 cellular device is connected to Digi Remote Manager. To
-   do so, verify that the value of the **DI** parameter is **0**, **5** or **6**
-   (connected without TLS, connected over TLS, or connected over TLS with authenticated
-   server, respectively).
 
 Run
 ---
