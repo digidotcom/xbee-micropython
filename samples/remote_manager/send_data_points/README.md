@@ -28,7 +28,9 @@ Make sure the hardware is set up correctly:
    verify that the Connection status LED is blinking or the value of the
    **AI** parameter is **0**.
 3. Make sure the XBee3 cellular device is connected to Digi Remote Manager. To
-   do so, verify that the value of the **RI** parameter is **0**.
+   do so, verify that the value of the **DI** parameter is **0**, **5** or **6**
+   (connected without TLS, connected over TLS, or connected over TLS with authenticated
+   server, respectively).
 
 Run
 ---
