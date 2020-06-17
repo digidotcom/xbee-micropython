@@ -25,8 +25,10 @@ class HDC1080:
         i2c -- The i2c object (driver) used to interact through device addresses.
         slave_addr -- The slave address of the sensor (default 64 or 0x40).
         """
+        # Perform a scan and make sure we find the slave device we want to talk to.
+        devices = i2c.scan()
+        assert slave_addr in devices, "Did not find slave %d in scan: %s" % (slave_addr, devices)
         self.i2c = i2c
-        assert slave_addr in self.i2c.scan(), "Did not find slave %d in scan: %s" % slave_addr
         self.addr = slave_addr
         # received data from temperature and humidity registers is two unsigned characters
         self.fmt = '>2B'
