@@ -180,6 +180,51 @@ def transmit(dest: Any, payload: Any, *, source_ep: int = xbee.ENDPOINT_DIGI_DAT
     """
     ...
 
+def idle_radio(idle: bool, /) -> None:
+  """
+  Enters or exits the idle radio state. `idle_now(True)` puts the device
+  into this state, and `idle_now(False)` returns it to normal operation.
+  While the radio is idle, the module consumes less current but cannot
+  receive RF transmissions.
+
+  **Note**: This function is only available on XBee 3 RF modules with
+  version x00B or newer. XBee Cellular modules do not support this
+  functionality.
+  """
+  ...
+
+def poll_now() -> None:
+  """
+  Polls for messages sent while the device was asleep or the radio idle.
+
+  In order to receive data while the radio is idled, the MicroPython
+  application must periodically call xbee.poll_now() to check for
+  incoming data. Calling poll_now() will cause the radio to check for
+  messages stored by its parent, and will retrieve a single message from
+  the parent if any are available. xbee.poll_now() doesn't return the
+  retrieved packet—the packet is instead passed to MicroPython via the
+  normal method, either by the application calling xbee.receive() or
+  through a callback if one is registered.
+
+  **Note**: xbee.poll_now() is a non-blocking call, meaning it will
+  return before the polling is complete. It can take about 10 ms after
+  calling poll_now() before a message is available to xbee.receive().
+
+  It is recommended to register a callback for received packets when
+  using xbee.poll_now(). That way, once the packet is retrieved from the
+  parent it will be immediately handled by the application.
+
+  Since xbee.poll_now() only retrieves a single packet from the parent,
+  it may need to be called more than once if more than one message may
+  be received between polls. One way to do so is by calling
+  xbee.poll_now() again every time a packet is received, or in the
+  receive callback.
+
+  **Note**: This function is only available on XBee3 Zigbee modules with
+  version 100B or newer.
+  """
+  ...
+
 class XBee:
     """
     Class used to create an object for the XBee device that is hosting
