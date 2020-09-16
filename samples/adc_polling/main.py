@@ -19,15 +19,28 @@
 # SOFTWARE.
 
 from machine import ADC
+import xbee
 import time
 
 # Pin D3 (AD3/DIO3)
 ADC_PIN_ID = "D3"
 
+# ADC reference voltage
+AV_VALUES = {0: 1.25, 1: 2.5, 2: 3.3, None: 2.5}
 
 print(" +-------------------------------------+")
 print(" | XBee MicroPython ADC Polling Sample |")
 print(" +-------------------------------------+\n")
+
+# Read the module's Analog Digital Reference
+try:
+    av = xbee.atcmd("AV")
+except KeyError:
+    # Reference is set to 2.5 V on XBee 3 Cellular
+    av = None
+reference = AV_VALUES[av]
+print("Configured Analog Digital Reference: AV:{}, {} V".format(av, reference))
+
 
 # Create an ADC object for pin DIO0/AD0.
 adc_pin = ADC(ADC_PIN_ID)
@@ -35,4 +48,5 @@ adc_pin = ADC(ADC_PIN_ID)
 # Start reading the analog voltage value present at the pin.
 while True:
     print("- ADC value:", adc_pin.read())
+    print("- Analog voltage [V]:", adc_pin.read() * reference / 4095)
     time.sleep(1)
