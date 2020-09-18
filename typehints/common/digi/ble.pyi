@@ -73,12 +73,13 @@ _DescriptorTuple = Tuple[_DescriptorHandle, 'UUID']
 
 
 __all__ = (
-    'ADDR_TYPE_PUBLIC', 'ADDR_TYPE_RANDOM', 'ADDR_TYPE_PUBLIC_IDENTITY', 'ADDR_TYPE_RANDOM_IDENTITY',
-    'PROP_BROADCAST', 'PROP_READ', 'PROP_WRITE', 'PROP_WRITE_NO_RESP', 'PROP_AUTH_SIGNED_WR',
-    'PROP_NOTIFY', 'PROP_INDICATE',
-    'active', 'config', 'gap_advertise', 'gap_scan', 'gap_connect',
-    'UUID',
-)
+    'ADDR_TYPE_PUBLIC', 'ADDR_TYPE_RANDOM', 'ADDR_TYPE_PUBLIC_IDENTITY',
+    'ADDR_TYPE_RANDOM_IDENTITY', 'PROP_BROADCAST', 'PROP_READ',
+    'PROP_WRITE', 'PROP_WRITE_NO_RESP', 'PROP_AUTH_SIGNED_WR',
+    'PROP_NOTIFY', 'PROP_INDICATE', 'PAIRING_REQUIRE_MITM',
+    'PAIRING_REQUIRE_BONDING', 'PAIRING_DISABLE_LEGACY' 'active',
+    'config', 'gap_advertise', 'gap_scan', 'gap_connect',
+    'xbee_connect' 'UUID', )
 
 
 ADDR_TYPE_PUBLIC: int = ...
@@ -93,6 +94,10 @@ PROP_WRITE_NO_RESP: int = ...
 PROP_AUTH_SIGNED_WR: int = ...
 PROP_NOTIFY: int = ...
 PROP_INDICATE: int = ...
+
+PAIRING_REQUIRE_MITM: int = ...
+PAIRING_REQUIRE_BONDING: int = ...
+PAIRING_DISABLE_LEGACY: int = ...
 
 
 def active(
@@ -910,7 +915,25 @@ class _gap_connect(ContextManager):
         """
         ...
 
-    def __enter__(self) -> _gap_connect:
+    def secure(self, cb: Callable[[int], None], /) -> None:
+        """Performs pairing/bonding on a connection.
+
+        :param cb: A callback which will be called upon completion of
+            the pairing operation. It will be passed the value zero if
+            the pairing succeeded, otherwise it will be passed a BLE
+            error as documented in the Bluetooth Core spec..
+
+        See also the ``security`` argument to ``ble.config`` to guide
+        the behavior of the pairing/bonding operation.
+
+        The ``secure`` function is new in the following firmware versions:
+            * XBee3 Cellular LTE-M/NB-IoT: version 11416
+            * XBee3 Cellular LTE Cat 1: version x16
+
+        """
+        ...
+
+ def __enter__(self) -> _gap_connect:
         """
         Enter the runtime context for using this GAP connection object as a context manager
         (using the ``with`` statement).
@@ -1065,5 +1088,106 @@ def gap_connect(
     :raises OSError ETIMEDOUT: The connection attempt timed out.
     :raises OSError ENOTCONN: The connection attempt failed for an unknown reason.
 
+    """
+    ...
+
+
+class _xbee_connect():
+    """
+    Class used to encapsulate an encrypted connection to a remote XBee3 API Service.
+
+    This class cannot be instantiated, it is returned from ``digi.ble.xbee_connect()``.
+
+    See the documentation for ``digi.ble.xbee_connect()`` for examples of usage.
+    """
+    def send(self, data: bytes) -> None:
+        """Send 'data' to the API Service of the peer.
+
+        'data' should be valid API frames (including delimiter and
+        checksum). Responses, if any, will be made through callbacks
+        to the 'receive' argument used in the initial
+        'digi.ble.xbee_connect()' call.
+
+        """
+        ...
+
+
+def xbee_connect(conn: _gap_connect,
+                 receive: Callable[[bytes], None],
+                 password: str,
+                 timeout: int) -> _xbee_connect:
+    """Create an authenticated and encrypted connection to XBee3 API Service.
+
+    This method will discover the API Service on the peer connection
+    'conn' and authenticate using the provided password.
+
+    Returns an object that allows encrypted communication using the
+    state established by performing SRP.
+
+    """
+    ...
+
+
+def delete_bondings() -> None:
+    """Remove all stored bonding table entries."""
+    ...
+
+
+PasskeyCB = Callable[[int], None]
+RequestCB = Callable[None, None]
+
+
+def io_callbacks(display_cb: PasskeyCB,
+                 confirm_cb: PasskeyCB,
+                 request_cb: RequestCB
+                 ) -> None:
+    """Provide callbacks which define IO capabilities for pairing.
+
+    :param display_cb: Callback to be used to present a passkey to the user.
+
+    :param confirm_cb: Callback to be used when the user must
+        confirm (Y/N) a passkey. The passkey will be provided as
+        an argument. The passkey should be presented to the user
+        and the users input should be fed back using
+        ``ble.passkey_confirm``.
+
+    :param request_cb: Callback to be indicate that the user must
+        input a passkey value. The use should be prompted to enter
+        a passkey and the passkey provided by the user should be
+        fed back using ``ble.passkey_enter``.
+
+    NOTE: The BLE standards recommend that the passkey be
+    presented to the user as a six digit number padded with
+    leading zeros.
+
+    The ``io_callbacks`` function is new in the following firmware versions:
+        * XBee3 Cellular LTE-M/NB-IoT: version 11416
+        * XBee3 Cellular LTE Cat 1: version x16
+    """
+    ...
+
+
+def passkey_confirm(confirmation: bool, /) -> None:
+    """Allows user confirmation of BLE pairing passkey.
+
+    :param confirmation: Provide True if the passkey provided by
+        the ``confirm_cb`` is correct, False otherwise.
+
+    The ``passkey_confirm`` function is new in the following firmware versions:
+        * XBee3 Cellular LTE-M/NB-IoT: version 11416
+        * XBee3 Cellular LTE Cat 1: version x16
+    """
+    ...
+
+
+def passkey_enter(passkey: int, /) -> None:
+    """Allows user entry of a passkey value.
+
+    :param passkey: The numeric value of the passkey provided by
+        the user.
+
+    The ``passkey_enter`` function is new in the following firmware versions:
+        * XBee3 Cellular LTE-M/NB-IoT: version 11416
+        * XBee3 Cellular LTE Cat 1: version x16
     """
     ...
