@@ -23,11 +23,15 @@ Make sure the hardware is set up correctly:
 
 1. Plug the XBee3 radio module into the XBee adapter and connect it to your
    computer's USB port.
-2. Configure AV (Analog Voltage Reference) parameter: For the XBee Cellular 
-   Modem the ADC analog reference is 2.5 V and the pin input range is 0 - 2.5 V. 
-   The ADC reference voltage and input range for XBee 3 Zigbee, DigiMesh 
-   and 802.15.4 are based onthe AV.
-   value which can be 0 = 1.25 V, 1 = 2.5 V or 2 = VDD.
+2. If using XBee 3 Zigbee, DigiMesh, or 802.15.4, ensure that the **AV** command
+   (Analog Voltage Reference) is configured to an input range which matches your
+   voltage source:
+
+     * 0 = 1.25 V
+     * 1 = 2.5 V
+     * 2 = VDD
+
+   If using XBee Cellular or XBee 3 Cellular, the analog reference voltage is 2.5V.
 3. Connect a voltage variable source to the pin configured as ADC (light
    sensor, temperature sensor, etc). For testing purposes we recommend using a
    potentiometer. Follow these steps to connect it:
