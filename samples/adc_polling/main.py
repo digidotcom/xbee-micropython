@@ -47,6 +47,7 @@ adc_pin = ADC(ADC_PIN_ID)
 
 # Start reading the analog voltage value present at the pin.
 while True:
-    print("- ADC value:", adc_pin.read())
-    print("- Analog voltage [V]:", adc_pin.read() * reference / 4095)
+    value = adc_pin.read()
+    print("- ADC value:", value)
+    print("- Analog voltage [V]:", value * reference / 4095)
     time.sleep(1)
