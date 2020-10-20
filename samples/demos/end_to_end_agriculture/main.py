@@ -64,7 +64,7 @@ STATUS_ERROR = "error"
 DEFAULT_TEMPERATURE = 20  # 20ºC
 DEFAULT_MOISTURE = 30  # 30%
 DEFAULT_BATTERY_LEVEL = 75  # 75%
-DEFAULT_VALVE_POS = "0"  # Closed
+DEFAULT_VALVE_POS = 0  # Closed
 
 TEMP_MAX = 40  # 40ºC
 TEMP_MIN = 0  # 0ºC
@@ -96,9 +96,9 @@ LED_PIN_ID = "D9"
 
 ADVERT_PREFIX = "IRRIGATION_"
 
-WEATHER_SUNNY = "0"
-WEATHER_CLOUDY = "1"
-WEATHER_RAINY = "2"
+WEATHER_SUNNY = 0
+WEATHER_CLOUDY = 1
+WEATHER_RAINY = 2
 
 # Variables.
 config_properties = [
@@ -401,11 +401,11 @@ def get_temperature():
     # Obtain the temperature delta value and determine if it should be added
     # or substracted from the calculated one depending on the weather
     # condition.
-    if weather_condition is WEATHER_SUNNY:
+    if weather_condition == WEATHER_SUNNY:
         # Calculate the variation delta. Max delta is 2.51 ºC (2 + 255 * 2)
         delta = 2 + (int.from_bytes(os.urandom(1), "big") * 2) / 1000
         add = True
-    elif weather_condition is WEATHER_CLOUDY:
+    elif weather_condition == WEATHER_CLOUDY:
         # Calculate the variation delta. Max delta is 0.51 ºC (255 * 2)
         delta = (int.from_bytes(os.urandom(1), "big") * 2) / 1000
         add = int.from_bytes(os.urandom(1), "big") > 128
@@ -450,11 +450,11 @@ def get_moisture():
     # Obtain the moisture delta value and determine if it should be added
     # or substracted from the calculated one depending on the weather
     # condition.
-    if weather_condition is WEATHER_SUNNY:
+    if weather_condition == WEATHER_SUNNY:
         # Calculate a variation delta. Max delta is 12.04 % (10 + 255 * 8)
         delta = 10 + (int.from_bytes(os.urandom(1), "big") * 8) / 1000
         add = False
-    elif weather_condition is WEATHER_CLOUDY:
+    elif weather_condition == WEATHER_CLOUDY:
         # Calculate a variation delta. Max delta is 1.02 % (255 * 4)
         delta = int.from_bytes(os.urandom(1), "big") * 4 / 1000
         add = int.from_bytes(os.urandom(1), "big") > 128
@@ -541,7 +541,7 @@ def set_status_value(status_id, status_value):
 
     Args:
         status_id (str): ID of the status element to set.
-        status_value (str): Value of the status element to set.
+        status_value (int): Value of the status element to set.
     """
     # Initialize variables.
     global time_seconds, weather_condition, valve_pos
