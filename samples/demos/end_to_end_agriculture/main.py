@@ -27,8 +27,6 @@ from machine import Pin
 from xbee import relay
 
 # Constants.
-FILE_PROPERTIES = "properties.txt"
-
 ITEM_PROP = "properties"
 ITEM_OP = "operation"
 ITEM_STATUS = "status"
@@ -39,8 +37,6 @@ ITEM_MAC = "mac"
 PROP_LATITUDE = "latitude"
 PROP_LONGITUDE = "longitude"
 PROP_ALTITUDE = "altitude"
-PROP_ROW = "row"
-PROP_COLUMN = "column"
 PROP_NAME = "name"
 PROP_PAN_ID = "pan_id"
 PROP_PASS = "password"
@@ -105,15 +101,9 @@ config_properties = [
     PROP_LATITUDE,
     PROP_LONGITUDE,
     PROP_ALTITUDE,
-    PROP_ROW,
-    PROP_COLUMN,
     PROP_NAME,
     PROP_PAN_ID,
     PROP_PASS
-]
-persistent_properties = [
-    PROP_ROW,
-    PROP_COLUMN
 ]
 text_properties = [
     PROP_NAME,
@@ -149,8 +139,8 @@ weather_condition = WEATHER_SUNNY
 
 def read_properties():
     """
-    Reads the application properties from both the persistent properties file
-    and the XBee firmware and returns a dictionary with all the properties.
+    Reads the application properties from the XBee firmware and returns a
+    dictionary with all the properties.
 
     Returns:
         A dictionary containing all the properties of the application with
@@ -160,25 +150,6 @@ def read_properties():
     properties = {}
     for prop in config_properties:
         properties[prop] = None
-
-    # Read the persistent properties from the file system.
-    try:
-        with open(FILE_PROPERTIES) as f:
-            # Read the file line by line.
-            line = f.readline()
-            while line:
-                line_elements = line.split("=")
-                if len(line_elements) == 2:
-                    prop = line_elements[0].strip()
-                    value = line_elements[1].strip()
-                    # Update the property value if it is valid.
-                    if prop in properties.keys():
-                        properties[prop] = value
-                        print("  - Read property '%s' from the file: '%s'" %
-                              (prop, properties[prop]))
-                line = f.readline()
-    except Exception:
-        return None
 
     # Read the XBee settings saved in the firmware.
     for prop in xbee_properties:
@@ -198,9 +169,7 @@ def read_properties():
 
 def save_properties(properties):
     """
-    Saves the given  properties in both the persistent properties file and in
-    the XBee firmware of the device depending on if the setting is persistent
-    or not.
+    Saves the given properties in the XBee firmware of the device.
 
     Args:
         properties (dict): dictionary containing the properties to save.
@@ -209,24 +178,6 @@ def save_properties(properties):
         ``True`` if the properties were saved successfully, ``False``
         otherwise.
     """
-    # Save persistent properties in the file.
-    try:
-        # Remove the properties file if it already exists.
-        if FILE_PROPERTIES in os.listdir():
-            os.remove(FILE_PROPERTIES)
-        # Create the properties file.
-        with open(FILE_PROPERTIES, mode='wt') as f:
-            # Write the persistent properties in the file system.
-            for prop in persistent_properties:
-                # Skip empty settings.
-                if properties[prop] is None:
-                    continue
-                print("  - Saving property '%s' with '%s' in the file" %
-                      (prop, properties[prop]))
-                f.write("%s=%s\n" % (prop, properties[prop]))
-    except Exception:
-        return False
-
     # Save XBee properties in the XBee firmware.
     for prop in xbee_properties:
         # Skip empty settings.
