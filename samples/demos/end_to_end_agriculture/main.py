@@ -400,19 +400,19 @@ def get_moisture():
 
     # Obtain the moisture delta value and determine if it should be added
     # or substracted from the calculated one depending on the weather
-    # condition.
-    if weather_condition == WEATHER_SUNNY:
-        # Calculate a variation delta. Max delta is 12.04 % (10 + 255 * 8)
-        delta = 10 + (int.from_bytes(os.urandom(1), "big") * 8) / 1000
-        add = False
-    elif weather_condition == WEATHER_CLOUDY:
-        # Calculate a variation delta. Max delta is 1.02 % (255 * 4)
-        delta = int.from_bytes(os.urandom(1), "big") * 4 / 1000
-        add = int.from_bytes(os.urandom(1), "big") > 128
-    else:
+    # condition and the valve position.
+    if weather_condition == WEATHER_RAINY or valve_pos == 1:
         # Calculate a variation delta. Max delta is 25.1 % (20 + 255 * 20)
         delta = 20 + (int.from_bytes(os.urandom(1), "big") * 20) / 1000
         add = True
+    elif weather_condition == WEATHER_SUNNY:
+        # Calculate a variation delta. Max delta is 12.04 % (10 + 255 * 8)
+        delta = 10 + (int.from_bytes(os.urandom(1), "big") * 8) / 1000
+        add = False
+    else:
+        # Calculate a variation delta. Max delta is 1.02 % (255 * 4)
+        delta = int.from_bytes(os.urandom(1), "big") * 4 / 1000
+        add = int.from_bytes(os.urandom(1), "big") > 128
 
     # Apply the delta.
     if add:
