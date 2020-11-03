@@ -21,10 +21,14 @@
 import binascii
 import os
 import time
+
 import ujson
 import xbee
+from machine import I2C
 from machine import Pin
 from xbee import relay
+
+from hdc1080 import HDC1080
 
 # Constants.
 ITEM_PROP = "properties"
@@ -88,6 +92,7 @@ VALUE_ENABLED = 1
 VALUE_DISABLED = 0
 VALUE_IRRIGATION = "irrigation"
 
+BTN_PIN_ID = "D0"
 LED_PIN_ID = "D9"
 
 ADVERT_PREFIX = "IRRIGATION_"
@@ -132,9 +137,15 @@ valve_pos = DEFAULT_VALVE_POS
 
 identified = False
 finished = False
+simulate_temp = True
 
 time_seconds = 0
 weather_condition = WEATHER_SUNNY
+
+led_pin = Pin(LED_PIN_ID, Pin.OUT, value=VALUE_DISABLED)
+btn_pin = Pin(BTN_PIN_ID, Pin.IN, Pin.PULL_UP)
+
+sensor = None
 
 
 def read_properties():
@@ -340,42 +351,53 @@ def get_temperature():
     """
     # Initialize variables.
     global temperature
+    global simulate_temp
 
-    time_minutes = int(time_seconds) / 60.0
+    # Check if the temperature has to be simulated or read from the I2C sensor.
+    if simulate_temp or sensor is None:
+        time_minutes = int(time_seconds) / 60.0
 
-    # Get the temperature based on the time of the day.
-    temperature = int(pow(time_minutes, 3) * (-0.00000006) +
-                      pow(time_minutes, 2) * 0.00011 -
-                      time_minutes * 0.034 +
-                      14.832)
+        # Get the temperature based on the time of the day.
+        temperature = int(pow(time_minutes, 3) * (-0.00000006) +
+                          pow(time_minutes, 2) * 0.00011 -
+                          time_minutes * 0.034 +
+                          14.832)
 
-    # Obtain the temperature delta value and determine if it should be added
-    # or substracted from the calculated one depending on the weather
-    # condition.
-    if weather_condition == WEATHER_SUNNY:
-        # Calculate the variation delta. Max delta is 2.51 ºC (2 + 255 * 2)
-        delta = 2 + (int.from_bytes(os.urandom(1), "big") * 2) / 1000
-        add = True
-    elif weather_condition == WEATHER_CLOUDY:
-        # Calculate the variation delta. Max delta is 0.51 ºC (255 * 2)
-        delta = (int.from_bytes(os.urandom(1), "big") * 2) / 1000
-        add = int.from_bytes(os.urandom(1), "big") > 128
+        # Obtain the temperature delta value and determine if it should be added
+        # or substracted from the calculated one depending on the weather
+        # condition.
+        if weather_condition == WEATHER_SUNNY:
+            # Calculate the variation delta. Max delta is 2.51 ºC (2 + 255 * 2)
+            delta = 2 + (int.from_bytes(os.urandom(1), "big") * 2) / 1000
+            add = True
+        elif weather_condition == WEATHER_CLOUDY:
+            # Calculate the variation delta. Max delta is 0.51 ºC (255 * 2)
+            delta = (int.from_bytes(os.urandom(1), "big") * 2) / 1000
+            add = int.from_bytes(os.urandom(1), "big") > 128
+        else:
+            # Calculate the variation delta. Max delta is 4.51 ºC (4 + 255 * 2)
+            delta = 4 + (int.from_bytes(os.urandom(1), "big") * 2) / 1000
+            add = False
+
+        # Apply the delta.
+        if add:
+            temperature += delta
+        else:
+            temperature -= delta
+
+        # Check limits.
+        if temperature < TEMP_MIN:
+            temperature = TEMP_MIN
+        elif temperature > TEMP_MAX:
+            temperature = TEMP_MAX
     else:
-        # Calculate the variation delta. Max delta is 4.51 ºC (4 + 255 * 2)
-        delta = 4 + (int.from_bytes(os.urandom(1), "big") * 2) / 1000
-        add = False
-
-    # Apply the delta.
-    if add:
-        temperature += delta
-    else:
-        temperature -= delta
-
-    # Check limits.
-    if temperature < TEMP_MIN:
-        temperature = TEMP_MIN
-    elif temperature > TEMP_MAX:
-        temperature = TEMP_MAX
+        try:
+            # Read the temperature from the I2C sensor.
+            temperature = sensor.read_temperature(True)
+        except OSError:
+            # If the read fails, change to simulation.
+            simulate_temp = True
+            return get_temperature()
 
     return "%.2f" % temperature
 
@@ -503,6 +525,8 @@ def set_status_value(status_id, status_value):
         weather_condition = status_value
     elif status_id == STAT_VALVE:
         valve_pos = status_value
+        # Turn on/off the LED.
+        led_pin.value(valve_pos)
 
 
 def get_mac():
@@ -541,17 +565,35 @@ def config_advertisement():
     xbee.atcmd(AT_CMD_WR)
 
 
+def is_button_pressed():
+    """
+    Returns whether the D0 button is pressed or not.
+
+    Returns:
+        ``True`` if the button is pressed, ``False`` otherwise.
+    """
+    return btn_pin.value() == 0
+
+
 def main():
     """
     Main execution of the application.
     """
     # Initialize variables.
+    global sensor
     global identified
     global finished
+    global simulate_temp
 
     print(" +-----------------------------+")
     print(" | End-to-End IoT Solar Sample |")
     print(" +-----------------------------+\n")
+
+    # Instantiate the HDC1080 peripheral.
+    try:
+        sensor = HDC1080(I2C(1))
+    except AssertionError:
+        pass
 
     # Configure the Bluetooth advertisement.
     config_advertisement()
@@ -559,14 +601,25 @@ def main():
     # Register relay callback to handle incoming relay packets.
     relay.callback(relay_frame_callback)
 
-    # Set up the LED pin object to manage the LED status. Configure the pin
-    # as output and set its initial value to off (0).
-    led_pin = Pin(LED_PIN_ID, Pin.OUT, value=VALUE_DISABLED)
+    # Set the LED pin initial value to off (0).
+    led_pin.off()
+
+    was_btn_pressed = is_button_pressed()
 
     # Start the main application loop.
     while True:
         # Sleep 100 ms.
         time.sleep_ms(100)
+
+        if sensor is not None:
+            # If the button has been pressed, swap the temperature source
+            # (reading or simulation).
+            if not was_btn_pressed and is_button_pressed():
+                simulate_temp = not simulate_temp
+                print("- Temperature source changed to %s"
+                      % ("simulation" if simulate_temp else "reading"))
+
+            was_btn_pressed = is_button_pressed()
 
         # Blink identification LED if necessary.
         if identified:
