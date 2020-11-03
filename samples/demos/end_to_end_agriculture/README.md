@@ -52,6 +52,11 @@ The example is already configured, so all you need to do is build and launch
 the project. Then, read the demo documentation for more information about how
 to test the demo.
 
+Required libraries
+--------------------
+
+* hdc1080
+
 Supported platforms
 -------------------
 
