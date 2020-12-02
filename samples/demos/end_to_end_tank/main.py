@@ -24,8 +24,10 @@ import ujson
 import xbee
 
 from digi import cloud
-from machine import Pin
+from machine import I2C, Pin
 from xbee import relay
+
+from hdc1080 import HDC1080
 
 # Constants.
 ITEM_OP = "operation"
@@ -47,6 +49,7 @@ STATUS_ERROR = "error"
 
 DEFAULT_TANK_LEVEL = 50.0       # 50 %
 DEFAULT_VALVE_POSITION = False  # Closed
+DEFAULT_TEMPERATURE = 21.0      # 21 C
 DEFAULT_REPORT_INTERVAL = 60    # 1 minute
 
 TANK_DRAIN_RATE = 0.005  # 0.005 % / second
@@ -75,6 +78,7 @@ ADVERT_PREFIX = "TANK_"
 
 DATAPOINT_LEVEL = "level"
 DATAPOINT_VALVE = "valve"
+DATAPOINT_TEMPERATURE = "temperature"
 
 DRM_REQ_ON = "VALVE_ON"
 DRM_REQ_OFF = "VALVE_OFF"
@@ -112,6 +116,8 @@ finished = False
 
 led_pin = Pin(LED_PIN_ID, Pin.OUT, value=VALUE_DISABLED)
 btn_pin = Pin(BTN_PIN_ID, Pin.IN, Pin.PULL_UP)
+
+sensor = None
 
 
 def read_properties():
@@ -403,6 +409,23 @@ def reset_water_flow_vars():
         valve_open_time = time.time()
 
 
+def get_tank_temperature():
+    """
+    Reads the tank temperature from the I2C sensor and returns it.
+
+    Returns:
+        The tank temperature.
+    """
+    if sensor is None:
+        return DEFAULT_TEMPERATURE
+
+    try:
+        # Read the temperature from the I2C sensor.
+        return sensor.read_temperature(True)
+    except OSError:
+        return DEFAULT_TEMPERATURE
+
+
 def process_drm_request(request):
     """
     Processes the given DRM request.
@@ -455,16 +478,19 @@ def upload_sensor_data():
     # Calculate the new tank level.
     calculate_tank_level()
     tank_level_f = "{:.2f}".format(tank_level)
+    tank_temperature_f = "{:.2f}".format(get_tank_temperature())
 
     # print debug traces.
     print("- Sending sensor values to DRM:")
     print("  - Tank level: {} %".format(tank_level_f))
     print("  - Tank valve: {}".format("Open" if tank_valve_open else "Closed"))
+    print("  - Tank temperature: {} C".format(tank_temperature_f))
 
     # Upload the samples to DRM.
     data = cloud.DataPoints()
-    data.add(DATAPOINT_LEVEL, tank_level_f)
+    data.add(DATAPOINT_LEVEL, tank_level_f, units="%")
     data.add(DATAPOINT_VALVE, int(tank_valve_open))
+    data.add(DATAPOINT_TEMPERATURE, tank_temperature_f, units="C")
     try:
         data.send(timeout=60)
     except OSError as e:
@@ -500,6 +526,7 @@ def main():
     Main execution of the application.
     """
     # Initialize variables.
+    global sensor
     global identified
     global finished
 
@@ -510,6 +537,12 @@ def main():
     print(" +---------------------------------------+")
     print(" | End-to-End IoT Tank Monitoring Sample |")
     print(" +---------------------------------------+\n")
+
+    # Instantiate the HDC1080 peripheral.
+    try:
+        sensor = HDC1080(I2C(1))
+    except AssertionError:
+        pass
 
     # Configure the Bluetooth advertisement.
     config_advertisement()
