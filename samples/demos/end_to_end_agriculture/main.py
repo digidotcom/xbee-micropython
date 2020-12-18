@@ -163,8 +163,8 @@ def read_properties():
         properties[prop] = None
 
     # Read the XBee settings saved in the firmware.
-    for prop in xbee_properties:
-        read_value = xbee.atcmd(xbee_properties[prop])
+    for prop, atcmd in xbee_properties.items():
+        read_value = xbee.atcmd(atcmd)
         if read_value is None:
             properties[prop] = None
         elif prop in text_properties:
@@ -192,7 +192,7 @@ def save_properties(properties):
     # Save XBee properties in the XBee firmware.
     for prop in xbee_properties:
         # Skip empty settings.
-        if prop not in properties or properties[prop] is None:
+        if properties.get(prop) is None:
             continue
         print("  - Saving property '%s' with '%s' in the XBee device" %
               (prop, properties[prop]))
@@ -203,7 +203,7 @@ def save_properties(properties):
                        binascii.unhexlify(properties[prop]))
 
     # Configure the network encryption based on the given password.
-    if PROP_PASS not in properties or properties[PROP_PASS] is None:
+    if properties.get(PROP_PASS) is None:
         print("  - Password not provided - Disabling network encryption.")
         xbee.atcmd(AT_CMD_EE, VALUE_DISABLED)
     else:
@@ -585,9 +585,9 @@ def main():
     global finished
     global simulate_temp
 
-    print(" +-----------------------------+")
-    print(" | End-to-End IoT Solar Sample |")
-    print(" +-----------------------------+\n")
+    print(" +-----------------------------------+")
+    print(" | End-to-End IoT Agriculture Sample |")
+    print(" +-----------------------------------+\n")
 
     # Instantiate the HDC1080 peripheral.
     try:
