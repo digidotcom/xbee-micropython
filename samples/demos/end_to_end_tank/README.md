@@ -1,16 +1,17 @@
 End to End Tank Monitoring IoT Sample Application
 =================================================
 
-This example is part of the Digi's End-to-End Tank Monitoring IoT demo. It
+This example is part of the Digi XBee IoT Tank Monitoring demo. It
 demonstrates how to use the XBee 3 Cellular modules to communicate with Digi
 Remote Manager and use the BLE interface to talk to mobile apps applied to
 the tank monitoring vertical.
 
 In theory, the XBee 3 Cellular module this example runs in corresponds to a
-tank controller and is connected to the following peripherals but, for
-demonstration purposes, they are emulated:
-  * Level sensor.
-  * Electronic valve.
+tank controller and is connected to the following peripherals (for demonstration
+purposes, some of them are emulated):
+  * Level sensor (emulated).
+  * Electronic valve (emulated).
+  * Temperature (obtained from the I2C sensor of the XBIB-C board).
 
 The example performs the following actions:
   * Listen for BLE connections to execute the provisioning process (initial
@@ -20,7 +21,7 @@ The example performs the following actions:
   * Listen for requests coming from Digi Remote Manager and execute the proper
     actions.
 
-Read the demo documentation for more information.
+Read the [demo documentation][doc] for more information.
 
 Requirements
 ------------
@@ -71,7 +72,7 @@ Supported platforms
 License
 -------
 
-Copyright (c) 2020, Digi International, Inc.
+Copyright (c) 2021, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -90,3 +91,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+[doc]: https://www.digi.com/resources/documentation/digidocs/90002422
