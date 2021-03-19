@@ -199,8 +199,10 @@ def save_properties(properties):
         if prop in text_properties:
             xbee.atcmd(xbee_properties[prop], properties[prop])
         else:
-            xbee.atcmd(xbee_properties[prop],
-                       binascii.unhexlify(properties[prop]))
+            value = properties[prop]
+            if len(value) % 2 != 0:
+                value = "0" + value
+            xbee.atcmd(xbee_properties[prop], binascii.unhexlify(value))
 
     # Configure the network encryption based on the given password.
     if properties.get(PROP_PASS) is None:
