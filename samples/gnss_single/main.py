@@ -1,4 +1,4 @@
-# Copyright (c) 2019, Digi International, Inc.
+# Copyright (c) 2021, Digi International, Inc.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -18,40 +18,35 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import uio
+import time
 
-from typing import Any, Dict, List, Optional, Tuple
+from digi import gnss
 
-
-argv: List[str] = ...
-byteorder: str = ...
-implementation: Tuple[str, Tuple[int, int, int], int] = ...
-maxsize: int = ...
-modules: Dict[str, Any] = ...  # technically [str, Module]
-path: List[str] = ...
-platform: str = ...
-stderr: uio.FileIO = ...
-stdin: uio.FileIO = ...
-stdout: uio.FileIO = ...
-version: str = ...
-version_info: Tuple[int, int, int] = ...
+# Poll interval needs to be longer than the acquisition timeout and
+# should be fairly length as acquiring a location fix requires leaving
+# the network.
+POLL_INTERVAL_SECONDS = 300
+# A 'cold' acquisition can take nearly a minute so this needs to be
+# long enough for that.
+ACQUISITION_TIMEOUT = 60
 
 
-def exit(arg: Optional[object] = None, /) -> None:
-    """
-    Raise a ``SystemExit`` exception, with the given argument if specified.
+def _location_cb(location):
+    if location is None:
+        print("[ERROR]")
+    else:
+        print("[OK]")
+        print("- Latitude: %s" % location["latitude"])
+        print("- Longitude: %s" % location["longitude"])
+    print(32 * "-")
 
-    Note that calling ``sys.exit()`` while at the MicroPython REPL
-    (``>>>`` prompt) has no effect.
-    """
+
+def main():
+    while True:
+        print("- Requesting GPS data...",  end="")
+        gnss.single_acquisition(_location_cb, ACQUISITION_TIMEOUT)
+        time.sleep(POLL_INTERVAL_SECONDS)
 
 
-def print_exception(exc: BaseException, file: uio._IOBase = stdout, /) -> None:
-    """
-    Print the given exception and its traceback to a file-like object
-    (default is ``sys.stdout``).
-
-    This is a simplified version of CPython's ``traceback.print_exception()``
-    function.
-    """
-
+if __name__ == "__main__":
+    main()

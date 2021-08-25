@@ -27,4 +27,8 @@
         <icon>xbee_cellular.png</icon>
         <category_id>xbee</category_id>
     </platform>
+    <platform id="Digi XBee3 Cellular LTE-M/NB-IoT (GNSS/2G)">
+        <icon>xbee3_cellular.png</icon>
+        <category_id>xbee</category_id>
+    </platform>
 </platforms>

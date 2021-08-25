@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from typing import Any
+from typing import Any, Union
 
 
 def dump(obj: Any, stream: Any) -> None:
@@ -56,10 +56,18 @@ def load(stream: Any) -> Any:
     """
     ...
 
-def loads(json_string: str) -> Any:
+def loads(json_string: Union[str, bytes, bytearray, memoryview]) -> Any:
     """
     Parses the given JSON string and returns a Python object. Raises
     ``ValueError`` if the string is not correctly formed.
+
+    **Note:** In MicroPython versions v1.11 and earlier, the ``json_string``
+    parameter is required to be of type ``str``. In newer version of
+    MicroPython, it must implement the buffer protocol (i.e. it must be
+    of type ``str``, ``bytes``, ``bytearray`` or ``memoryview``).
+    (The MicroPython version is visible in the banner displayed at the REPL,
+    using the **ATPYV** command, and as the second item in the
+    ``sys.implementation`` tuple.)
 
     :param json_string: String containing the JSON document to deserialise.
 

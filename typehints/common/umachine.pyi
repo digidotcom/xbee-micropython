@@ -372,12 +372,38 @@ class ADC(object):
 
     def read(self) -> int:
         """
-        Reads and returns a raw ADC sample. Use the following equation to
-        convert this value to mV::
+        Reads and returns a raw ADC sample with a range of 12 bits
+        (0 to 4095).
+
+        Use the following equation to convert this value to mV::
 
             sample mV = (A/D reading * Vref mV) / 4095
 
-        :return: A raw ADC sample
+        :return: A raw ADC sample in 12-bit range
+        """
+        ...
+
+    def read_u16(self) -> int:
+        """
+        Reads and returns a raw ADC sample with a range of 16 bits
+        (0 to 65535). This method is provided for compatibility with
+        other MicroPython implementations.
+
+        Since XBee devices only support 12-bit ADC readings,
+        readings from ``read_u16()`` will match those from ``read()``,
+        only scaled to a 16-bit range.
+
+        Use the following equation to convert this value to mV::
+
+            sample mV = (A/D reading * Vref mV) / 65535
+
+        **Note:**
+
+        The ``read_u16`` method is available on XBee Cellular and
+        XBee 3 Cellular products with version ending in 16 and newer,
+        and XBee 3 RF products with version ending in 0B and newer.
+
+        :return: A raw ADC sample in 16-bit range
         """
         ...
 
