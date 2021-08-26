@@ -5,9 +5,9 @@ This example demonstrates the usage of the 'uftp' library by giving an example
 of how to connect with an FTP server to download and upload files.
 
 The example waits until the module is connected to the cellular network. After
-that, it connects with a generic speed test FTP server, downloads the remote 
+that, it connects with a generic speed test FTP server, downloads the remote
 file '1KB.zip' and uploads the local file '2b.txt' in the 'upload' folder of
-the FTP server. 
+the FTP server.
 
 Requirements
 ------------
@@ -60,6 +60,7 @@ Supported platforms
 * Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x10
 * Digi XBee Cellular 3G - minimum firmware version: 1130B
 * Digi XBee Cellular LTE Cat 1 - minimum firmware version: 100B
+* Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: 11618
 
 License
 -------

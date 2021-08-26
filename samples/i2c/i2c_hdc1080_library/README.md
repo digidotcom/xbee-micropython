@@ -6,7 +6,7 @@ giving an example of how to communicate with the HDC1080 temperature and
 humidity sensor.
 
 The example reads the temperature and humidity values from the sensor and
-prints them every 5 seconds.  
+prints them every 5 seconds.
 
 Requirements
 ------------
@@ -83,6 +83,7 @@ Supported platforms
 * Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x10
 * Digi XBee Cellular 3G - minimum firmware version: 1130B
 * Digi XBee Cellular LTE Cat 1 - minimum firmware version: 100B
+* Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: 11618
 
 License
 -------

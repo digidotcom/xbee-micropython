@@ -192,6 +192,31 @@ def bundle(*args: Optional[str]) -> Optional[List]:
     """
     ...
 
+def dupterm(stream_obj: Any, index: int) -> Any:
+    """Switch the MicroPython terminal (the REPL) on the given
+    stream-like object.
+
+    The stream_object argument must be a native stream object, or
+    derive from uio.IOBase and implement the readinto() and write()
+    methods. The stream should be in non-blocking mode and
+    readinto() should return None if there is no data available for
+    reading.
+
+    Whan the XBee AP parameter is not 4 (MicroPython) all terminal
+    output is directed to this stream, and any input that is available
+    on the stream is passed on to the terminal input.
+
+    The index parameter is present for compatibility up stream, but
+    only slot zero is provided.
+
+    If None is passed as the stream_object then duplication is
+    cancelled on the slot given by index.
+
+    The function returns the previous stream-like object in the given slot.
+
+    """
+    ...
+
 def format() -> None:
     """
     Re-formats the filesystem and creates the default directory structure.

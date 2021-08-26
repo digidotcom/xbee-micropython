@@ -34,22 +34,22 @@ Make sure the hardware is set up correctly:
 2. Make sure the XBee3 cellular device is connected to Internet. To do so,
    verify that the Connection status LED is blinking or the value of the
    **AI** parameter is **0**.
-3. Using XCTU, enable the *"Always remain connected to Digi Remote Manager 
+3. Using XCTU, enable the *"Always remain connected to Digi Remote Manager
    through TCP"* feature by setting the **MO** parameter to **7**. This way The
-   device remains connected to Digi Remote Manager while you test the sample. 
+   device remains connected to Digi Remote Manager while you test the sample.
 4. Make sure the XBee3 cellular device is connected to Digi Remote Manager. To
    do so, verify that the value of the **RI** parameter is **0**.
 
 Run
 ---
 
-The example is already configured, so all you need to do is to compile and 
+The example is already configured, so all you need to do is to compile and
 launch the application. When executed, it starts reading device requests from
 your Digi Remote Manager account.
 
 Follow these steps to test the application:
 
-1. Log in your Digi Remote Manager account using your credentials: 
+1. Log in your Digi Remote Manager account using your credentials:
    https://remotemanager.digi.com/login.do
 2. Within the Digi Remote Manager platfotm, go to the **Documentation** Tab
    and then select the **API Explorer** option.
@@ -58,23 +58,23 @@ Follow these steps to test the application:
    devices and click **OK** to apply.
 4. Click the **Examples** button and select **SCI > Data Service >
    Send Request** to fill the code box with a device request example.
-5. Change the value of the attribute **target_name** to **micropython** and   
+5. Change the value of the attribute **target_name** to **micropython** and
    replace the **my payload string** text with **TOGGLE LED**. The request
    should look similar to:
-   
+
        <sci_request version="1.0">
          <data_service>
            <targets>
              <device id="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX"/>
            </targets>
            <requests>
-             <device_request target_name="micropython"> 
+             <device_request target_name="micropython">
                TOGGLE LED
              </device_request>
            </requests>
          </data_service>
        </sci_request>
-   
+
 6. Click **Send** button (fill the account credentials if asked to do so) to
    send the device request to the XBee3 Cellular device.
 7. The example should have received the device request. Verify that the
@@ -90,6 +90,7 @@ Supported platforms
 
 * Digi XBee3 Cellular LTE-M/NB-IoT - minimum firmware version: 11411
 * Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x11
+* Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: 11618
 
 License
 -------

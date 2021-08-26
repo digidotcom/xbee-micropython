@@ -9,7 +9,7 @@ Instead of calling the internal Digi Remote Manager API, this example uses a
 library to communicate with Digi Remote Manager through HTTP requests.
 
 The example creates a datastream and then reads and uploads the temperature of
-the module every 30 seconds to the configured Digi Remote Manager account. 
+the module every 30 seconds to the configured Digi Remote Manager account.
 
 Requirements
 ------------
@@ -53,7 +53,7 @@ and starts uploading samples there. The output should look like this:
 Follow these steps to verify samples are actually uploaded to your Digi Remote
 Manager account:
 
-1. Log in your Digi Remote Manager account using your credentials: 
+1. Log in your Digi Remote Manager account using your credentials:
    https://remotemanager.digi.com/login.do
 2. Within the Digi Remote Manager platfotm, go to the **Data Services** tab
    and select the **Data Streams** option.
@@ -74,6 +74,7 @@ Supported platforms
 * Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x10
 * Digi XBee Cellular 3G - minimum firmware version: 1130B
 * Digi XBee Cellular LTE Cat 1 - minimum firmware version: 100B
+* Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: 11618
 
 License
 -------
