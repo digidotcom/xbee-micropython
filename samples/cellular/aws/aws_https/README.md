@@ -47,7 +47,7 @@ launch the application.
 When the module has joined the cellular network, you should see the output of
 the AWS operations executed by the module such as the connection, as well as the shadow  :
 
-    - Waiting for the module to be connected to the cellular network... [OK] 
+    - Waiting for the module to be connected to the cellular network... [OK]
     - Connecting to AWS... [OK]
     - Sending shadow request for thing '<YOUR_THING_NAME>'... [OK]
     - Waiting for data... [OK]
@@ -59,7 +59,7 @@ the AWS operations executed by the module such as the connection, as well as the
     date: Thu, 09 May 2019 08:08:51 GMT
     x-amzn-RequestId: 53ff83f2-0577-85f1-0235-4885cfcd86fe
     connection: keep-alive
-    
+
     {"state":{},"metadata":{},"version":1,"timestamp":1557389331}
     ----------------------------------------------------------------
     - Done
@@ -71,6 +71,7 @@ Supported platforms
 * Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x10
 * Digi XBee Cellular 3G - minimum firmware version: 1130B
 * Digi XBee Cellular LTE Cat 1 - minimum firmware version: 100B
+* Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: 11618
 
 License
 -------

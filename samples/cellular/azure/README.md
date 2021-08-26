@@ -37,13 +37,13 @@ Follow these steps to do so:
 
 1. Run **Device Explorer** and open the **Configuration** tab.
 2. Copy the device's specific Connection String into the **IoT Hub Connection String** field.
-3. Click over to the **Data** tab. 
+3. Click over to the **Data** tab.
 
 Now you can compile and launch the example to publish data to the configured
-MQTT topic. 
+MQTT topic.
 
 When the module has joined the cellular network, you should see the output of
-the sample. In this case it displays the result of the Azure connection and 
+the sample. In this case it displays the result of the Azure connection and
 publishing operations:
 
     - "Network connected"
@@ -51,7 +51,7 @@ publishing operations:
     - The information about the connection will be listed.
     - "Sending 10 messages to Azure..."
 
-Verify that the **Data** tab displays the 10 messages that were sent from the XBee3 
+Verify that the **Data** tab displays the 10 messages that were sent from the XBee3
 
 Required libraries
 --------------------
@@ -64,6 +64,7 @@ Supported platforms
 
 * Digi XBee3 Cellular LTE-M/NB-IoT - minimum firmware version: 11415
 * Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x15
+* Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: 11618
 
 License
 -------

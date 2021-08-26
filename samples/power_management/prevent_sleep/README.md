@@ -33,21 +33,21 @@ Make sure the hardware is set up correctly:
 2. Using XCTU configure the sleep options of the module to **sleep for 10
    seconds** and **wake for 4 seconds**. To do so configure the following
    parameters:
-   
+
        SM: Cyclic Sleep [4] - Wakes on timer expiration
        SP: 3E8              - 10 seconds
-       ST: FA0              - 4 seconds 
+       ST: FA0              - 4 seconds
        SO: 2                - Always wake for ST time
 
 Run
 ---
 
-The example is already configured, so all you need to do is to compile and 
+The example is already configured, so all you need to do is to compile and
 launch the application.
 
 **Note**: Before discovering the device or launching the application you must
 either **reset** the module or **press the commissioning** button to make sure
-the module is not sleeping to communicate with it. 
+the module is not sleeping to communicate with it.
 
 While the application is running verify that the `interruptable counter` is
 interrupted when the module goes to sleep (up to 3 times until the counter
@@ -104,6 +104,7 @@ Supported platforms
 * Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x10
 * Digi XBee Cellular 3G - minimum firmware version: 1130B
 * Digi XBee Cellular LTE Cat 1 - minimum firmware version: 100B
+* Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: 11618
 
 License
 -------

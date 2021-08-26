@@ -35,19 +35,19 @@ Make sure the hardware is set up correctly:
 2. Using XCTU configure the sleep mode (**SM**) of the module to be managed
    from MicroPython. Depending on the module you have, the value of the **SM**
    setting changes:
-   
+
        Cellular devices:  SM = Normal [0]
        RF devices:        SM = MicroPython Sleep [6]
 
 Run
 ---
 
-The example is already configured, so all you need to do is to compile and 
+The example is already configured, so all you need to do is to compile and
 launch the application. As soon as the application is started it displays
 the 2 available ways to test the functionality of the sample:
 
 * **Option 1**
-  1. Press 'User button' (SW2 in XBIB-U-DEV board and COMM DIO0 in 
+  1. Press 'User button' (SW2 in XBIB-U-DEV board and COMM DIO0 in
      XBIB-C board).
   2. Wait for the module to go to sleep (ON SLEEP LED turns off).
   3. Try to send a ^C (cancel) to exit example program while the module is
@@ -65,7 +65,7 @@ the 2 available ways to test the functionality of the sample:
   3. Wait for the module to go to sleep (ON SLEEP LED turns off).
   4. While its sleeping, toggle DTR pin by connecting the XBee REPL console.
   5. Module wakes as soon as the connection with the REPL is established.
-     Application displays the amount of ms the module was sleeping and an 
+     Application displays the amount of ms the module was sleeping and an
      early wake notification.
 
 Follow the steps of each option to verify they work properly.
@@ -80,6 +80,7 @@ Supported platforms
 * Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x10
 * Digi XBee Cellular 3G - minimum firmware version: 1130B
 * Digi XBee Cellular LTE Cat 1 - minimum firmware version: 100B
+* Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: 11618
 
 License
 -------

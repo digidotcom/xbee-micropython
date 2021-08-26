@@ -2,12 +2,12 @@ AWS Temperature Sensor Sample Application
 =========================================
 
 This sample uses the 'mqtt' and 'hdc1080' libraries to monitor the temperature
-of an HDC1080 sensor (embedded in the XBIB-C development board) through AWS.  
+of an HDC1080 sensor (embedded in the XBIB-C development board) through AWS.
 
 The example connects with AWS using the SSL certificates and publishes the
-temperature of the sensor periodically to a specific MQTT topic. If the 
+temperature of the sensor periodically to a specific MQTT topic. If the
 temperature exceeds or is below a configured threshold, the sample publishes a
-message to an alarm topic. 
+message to an alarm topic.
 
 The temperature sample ratio and threshold can be configured publishing the
 desired values to the configuration topic. You can use the AWS IoT console to
@@ -25,7 +25,7 @@ To run this example you need:
 * An AWS account with your XBee Cellular device added as a Thing. For more
   information on how to get started with AWS see
   [Connecting an XBee Cellular device to AWS IoT](../) guide.
- 
+
 Setup
 -----
 
@@ -60,13 +60,13 @@ application. Follow these steps to do so:
    topic.
 
 Now you can compile and launch the example to start reporting the temperature
-to AWS. 
+to AWS.
 
 When the module has joined the cellular network, you should see the output of
-the sample. In this case it displays the result of the AWS connection and 
+the sample. In this case it displays the result of the AWS connection and
 subscribing operations. It also starts reporting temperature values to AWS:
 
-    - Waiting for the module to be connected to the cellular network... [OK] 
+    - Waiting for the module to be connected to the cellular network... [OK]
     - Connecting to AWS... [OK]
     - Subscribing to topic 'sample/update'... [OK]
     - Publishing alarm (high temperature)... [OK]
@@ -78,7 +78,7 @@ subscribing operations. It also starts reporting temperature values to AWS:
 will detect that it exceeds or is below the threshold, so the application will
 publish to the 'sample/alarm' topic before publishing to the temperature one.
 
-Verify that the MQTT client panel displays the message sent from the XBee3 
+Verify that the MQTT client panel displays the message sent from the XBee3
 Cellular device to the 'sample/temp' topic and they have the following format:
 
     {
@@ -96,7 +96,7 @@ so, follow these steps:
          "threshold_temp": 70,
          "wait_timer": 15
        }
-4. Click **Publish to topic** button to publish the message.  
+4. Click **Publish to topic** button to publish the message.
 
 Just after publishing the message, the application should receive it. Verify
 that the output of the application displays it and configuration is updated
@@ -118,6 +118,7 @@ Supported platforms
 * Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x10
 * Digi XBee Cellular 3G - minimum firmware version: 1130B
 * Digi XBee Cellular LTE Cat 1 - minimum firmware version: 100B
+* Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: 11618
 
 License
 -------

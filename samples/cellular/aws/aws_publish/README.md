@@ -52,18 +52,18 @@ Follow these steps to do so:
    topic.
 
 Now you can compile and launch the example to publish data to the configured
-MQTT topic. 
+MQTT topic.
 
 When the module has joined the cellular network, you should see the output of
-the sample. In this case it displays the result of the AWS connection and 
+the sample. In this case it displays the result of the AWS connection and
 publishing operations:
 
-    - Waiting for the module to be connected to the cellular network... [OK] 
+    - Waiting for the module to be connected to the cellular network... [OK]
     - Connecting to AWS... [OK]
     - Publishing message... [OK]
     - Done
 
-Verify that the MQTT client panel displays the message sent from the XBee3 
+Verify that the MQTT client panel displays the message sent from the XBee3
 Cellular device to the configured topic:
 
     {
@@ -82,6 +82,7 @@ Supported platforms
 * Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x10
 * Digi XBee Cellular 3G - minimum firmware version: 1130B
 * Digi XBee Cellular LTE Cat 1 - minimum firmware version: 100B
+* Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: 11618
 
 License
 -------

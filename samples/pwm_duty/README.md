@@ -56,7 +56,7 @@ launch the application. Follow these steps to test the sample:
 2. Verify that the output of the peripheral varies during the sequence. In the
    case of the RSSI LEDs tower of the XBIB-U-DEV board, LEDs should start
    turning on gradually from the bottom to the top and then turning off from
-   the top to the bottom. 
+   the top to the bottom.
 
 Supported platforms
 -------------------
@@ -68,6 +68,7 @@ Supported platforms
 * Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x10
 * Digi XBee Cellular 3G - minimum firmware version: 1130B
 * Digi XBee Cellular LTE Cat 1 - minimum firmware version: 100B
+* Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: 11618
 
 License
 -------

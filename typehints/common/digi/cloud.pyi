@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from typing import Any, Optional
+from typing import Any, Optional, Union
 
 TRANSPORT_TCP: int = ...
 TRANSPORT_UDP: int = ...
@@ -51,7 +51,7 @@ class _device_request(object):
         """
         ...
 
-    def readinto(self, b: bytearray) -> int:
+    def readinto(self, b: Union[bytearray, memoryview]) -> int:
         """
         Reads the payload received from Digi Remote Manager into a
         pre-allocated, ``bytearray()`` object ``b``, and returns the number of
@@ -63,7 +63,7 @@ class _device_request(object):
         """
         ...
 
-    def write(self, b: Any) -> int:
+    def write(self, b: bytes) -> int:
         """
         Writes a response back to Digi Remote Manager. After finishing writing
         a response, ``close()`` method should be called to complete the
@@ -223,4 +223,55 @@ class DataPoints(object):
 
         :return: The status value of the most recent send call.
         """
+        ...
+
+
+class Console:
+    """Class providing access to DRM console interface."""
+
+    def isconnected() -> bool:
+        """Indicates whether a console session is attached from DRM"""
+        ...
+
+    def read(self, size: int=-1) -> bytes:
+        """
+        Read from the DRM console.
+
+        Reads up to ``size`` bytes from the object and returns them. As a
+        convenience, if ``size`` is unspecified or ``-1``, all bytes until
+        end-of-file (EOF) are returned.
+
+        :param size: Maximum number of bytes to read.
+
+        :return: Data from console client or None if no data is available.
+        """
+        ...
+
+    def readinto(self, b: Union[bytearray, memoryview]) -> int:
+        """
+        Read from the DRM console into a pre-allocated buffer.
+
+        Reads bytes into a pre-allocated, writable bytes-like object ``b``,
+        and returns the number of bytes read. This call is non-blocking.
+
+        :param b: Writable bytes-like object where read bytes will be placed.
+
+        :return: Number of bytes read or None if no data is available.
+        """
+        ...
+    def write(self, b: bytes) -> int:
+        """Write to the DRM console.
+
+        If a DRM console session is not attached, the data will be
+        discarded.
+
+        :param b: The value to send to the Console client in DRM.
+
+        :return: The number of bytes written.
+
+        """
+        ...
+
+    def close(self) -> None:
+        """Close the current DRM console session."""
         ...

@@ -29,7 +29,7 @@ Run
 The example is already configured, so all you need to do is to compile and
 launch the application. To test the functionality, follow these steps:
 
-1. Press the button corresponding to the digital input line. By default the 
+1. Press the button corresponding to the digital input line. By default the
    button configured corresponds to **SW2** in XBIB-U-DEV carrier boards and
    **Comm DIO0** in XBIB-C carrier boards.
 2. Verify the value displayed in the XBee REPL console changes from 1 to 0 when
@@ -50,6 +50,7 @@ Supported platforms
 * Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x10
 * Digi XBee Cellular 3G - minimum firmware version: 1130B
 * Digi XBee Cellular LTE Cat 1 - minimum firmware version: 100B
+* Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: 11618
 
 License
 -------

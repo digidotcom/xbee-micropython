@@ -1,11 +1,11 @@
 MQTT Publish Subscribe Sample Application
 =========================================
 
-This example uses the 'mqtt' library to connect with an MQTT server and 
-test both the subscribe and publish topic operations. 
+This example uses the 'mqtt' library to connect with an MQTT server and
+test both the subscribe and publish topic operations.
 
 The example connects with the server and subscribes to the 'xbee_topic' topic.
-Then, monitors the value of the `D0` button of the board and, whenever the 
+Then, monitors the value of the `D0` button of the board and, whenever the
 button is pressed, it publishes a message to the same topic it subscribed
 before. This way, the subscribe and publish features are demonstrated in the
 same sample.
@@ -20,7 +20,7 @@ To run this example you need:
 * One XBee3 Cellular module with MicroPython support and a micro SIM card
   inserted with Internet capabilities.
 * One carrier board for the radio module (XBIB-U-DEV or XBIB-C board).
- 
+
 Setup
 -----
 
@@ -37,28 +37,28 @@ The example is already configured, so all you need to do is to compile and
 launch the application.
 
 When the module has joined the cellular network, you should see the output of
-the sample. In this case it displays the result of the MQTT connection and 
+the sample. In this case it displays the result of the MQTT connection and
 subscribing operations:
 
     - Waiting for the module to be connected to the cellular network... [OK]
     - Connecting to 'test.mosquitto.org'... [OK]
     - Subscribing to topic 'xbee_topic'... [OK]
     - Press 'D0' button to publish a message.
-    
+
 Now you need press the button corresponding to the 'D0'. By default the button
 corresponds to **SW2** in XBIB-U-DEV carrier boards and **Comm DIO0** in XBIB-C
 carrier boards.
 
 Once the button is pressed, the application sends the message 'Test from XBee!'
 to the topic 'xbee_topic' (the one it subscribed before). The application
-should receive and print the message immediately: 
+should receive and print the message immediately:
 
     - Publishing message... [OK]
     - Message received!
        * xbee_topic: Test from XBee!
 
 Press the button more times and verify every time the button is pressed a
-message is published and received by the XBee module.  
+message is published and received by the XBee module.
 
 Required libraries
 --------------------
@@ -72,6 +72,7 @@ Supported platforms
 * Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x10
 * Digi XBee Cellular 3G - minimum firmware version: 1130B
 * Digi XBee Cellular LTE Cat 1 - minimum firmware version: 100B
+* Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: 11618
 
 License
 -------

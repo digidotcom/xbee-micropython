@@ -7,7 +7,7 @@ display the current position.
 
 The example reads GPS data from the secondary UART of the module every 30
 seconds, extracts the values of latitude and longitude from the read data
-and displays them. 
+and displays them.
 
 Requirements
 ------------
@@ -69,6 +69,7 @@ Supported platforms
 * Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x10
 * Digi XBee Cellular 3G - minimum firmware version: 1130B
 * Digi XBee Cellular LTE Cat 1 - minimum firmware version: 100B
+* Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: 11618
 
 License
 -------

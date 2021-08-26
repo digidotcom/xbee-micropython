@@ -18,7 +18,7 @@ To run this example you need:
 * An AWS account with your XBee Cellular device added as a Thing. For more
   information on how to get started with AWS see
   [Connecting an XBee Cellular device to AWS IoT](../) guide.
- 
+
 Setup
 -----
 
@@ -47,10 +47,10 @@ The example is already configured, so all you need to do is to compile and
 launch the application.
 
 When the module has joined the cellular network, you should see the output of
-the sample. In this case it displays the result of the AWS connection and 
+the sample. In this case it displays the result of the AWS connection and
 subscribing operations:
 
-    - Waiting for the module to be connected to the cellular network... [OK] 
+    - Waiting for the module to be connected to the cellular network... [OK]
     - Connecting to AWS... [OK]
     - Subscribing to topic 'sample/xbee'... [OK]
     - Waiting for messages...
@@ -65,21 +65,21 @@ to do so:
 4. Write the name of the topic you want to publish to ('sample/xbee' by
    default) in the **Specify a topic and a message...** field. Optionally,
    change the message to be sent to the topic with 'Hello XBee!'.
-5. Click **Publish to topic** button to publish the message.  
+5. Click **Publish to topic** button to publish the message.
 
 Just after publishing the message, the application should receive it. Verify
 that the output of the application displays it:
 
     - Message received!
        * sample/xbee: Hello XBee!
- 
+
 Repeat the publish operation with a different message. The application displays
 the new message and, as the number of messages received has reached the limit,
 the application finishes:
 
     - Message received!
        * sample/xbee: Hello again XBee!
-    - Done 
+    - Done
 
 Required libraries
 --------------------
@@ -93,6 +93,7 @@ Supported platforms
 * Digi XBee3 Cellular LTE Cat 1 - minimum firmware version: x10
 * Digi XBee Cellular 3G - minimum firmware version: 1130B
 * Digi XBee Cellular LTE Cat 1 - minimum firmware version: 100B
+* Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: 11618
 
 License
 -------
