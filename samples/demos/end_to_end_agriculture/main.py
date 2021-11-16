@@ -299,7 +299,7 @@ def relay_frame_callback(relay_frame):
     elif operation == OP_FINISH:
         print("- BLE: Finish request received.")
         # Disable BLE interface. This operation does not require a response.
-        xbee.atcmd(AT_CMD_BT, VALUE_DISABLED)
+        # xbee.atcmd(AT_CMD_BT, VALUE_DISABLED)
         # Write settings in the device.
         xbee.atcmd(AT_CMD_WR)
         finished = True
