@@ -137,7 +137,7 @@ valve_pos = DEFAULT_VALVE_POS
 
 identified = False
 finished = False
-simulate_temp = True
+simulate_temp = False
 
 time_seconds = 0
 weather_condition = WEATHER_SUNNY
@@ -531,6 +531,22 @@ def set_status_value(status_id, status_value):
         led_pin.value(valve_pos)
 
 
+def toggle_valve():
+    """
+    Toggles the status of the electronic valve.
+    """
+    global valve_pos
+    status = valve_pos
+
+    if status == 0:
+        valve_pos = 1
+    else:
+        valve_pos = 0
+
+    print("- Toggling valve status to '{}'.".format("Open" if valve_pos == 1 else "Closed"))
+    # set_valve_open(new_status)
+
+
 def get_mac():
     """
     Returns the XBee MAC address of the device.
@@ -613,15 +629,22 @@ def main():
         # Sleep 100 ms.
         time.sleep_ms(100)
 
-        if sensor is not None:
-            # If the button has been pressed, swap the temperature source
-            # (reading or simulation).
-            if not was_btn_pressed and is_button_pressed():
-                simulate_temp = not simulate_temp
-                print("- Temperature source changed to %s"
-                      % ("simulation" if simulate_temp else "reading"))
+        # If the button has been pressed, swap the temperature source
+        # (reading or simulation).
+        if not was_btn_pressed and is_button_pressed():
+            toggle_valve()
+            status_response = {
+                ITEM_OP: OP_STATUS,
+                ITEM_PROP: get_sensors_values()
+            }
+            print("- Reporting status data: %s" % status_response)
+            try:
+                xbee.transmit(xbee.ADDR_COORDINATOR,
+                              ujson.dumps(status_response))
+            except Exception as e:
+                print("  - Transmit failure: %s" % str(e))
 
-            was_btn_pressed = is_button_pressed()
+        was_btn_pressed = is_button_pressed()
 
         # Blink identification LED if necessary.
         if identified:
