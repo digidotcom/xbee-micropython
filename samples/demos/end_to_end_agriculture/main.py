@@ -147,6 +147,10 @@ btn_pin = Pin(BTN_PIN_ID, Pin.IN, Pin.PULL_UP)
 
 sensor = None
 
+LED_PIN_ID = "D9"
+
+led_pin = Pin(LED_PIN_ID, Pin.OUT, value=VALUE_DISABLED)
+
 
 def read_properties():
     """
@@ -539,12 +543,12 @@ def toggle_valve():
     status = valve_pos
 
     if status == 0:
-        valve_pos = 1
+        valve_pos = True
     else:
-        valve_pos = 0
+        valve_pos = False
 
-    print("- Toggling valve status to '{}'.".format("Open" if valve_pos == 1 else "Closed"))
-    # set_valve_open(new_status)
+    print("- Toggling valve status to '{}'.".format("Open" if valve_pos == True else "Closed"))
+    led_pin.value(valve_pos)
 
 
 def get_mac():
