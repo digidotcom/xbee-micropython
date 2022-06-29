@@ -86,12 +86,17 @@ class FTP:
             sock.close()
 
     def getline(self):
-        line = str(self.sock.recv(MAXLINE), self.encoding)
-        if len(line) > MAXLINE:
-            raise Error("got more than %d bytes" % MAXLINE)
+        line = ""
+        for i in range(MAXLINE):
+            buf = str(self.sock.recv(1), self.encoding)
+            if buf == '\r':
+                buf2 = str(self.sock.recv(1), self.encoding)
+                if buf2 == '\n':
+                    break
+            line += buf
         if not line:
             raise EOFError
-        return line.rstrip('\r\n')
+        return line
 
     def getmultiline(self):
         line = self.getline()
