@@ -1,4 +1,4 @@
-# Copyright (c) 2019, Digi International, Inc.
+# Copyright (c) 2022, Digi International, Inc.
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -23,46 +23,35 @@ import time
 import uftp
 
 # Constants
-FTP_HOST = "speedtest.tele2.net"
-FTP_USER = "anonymous"
-FTP_PASS = "anonymous@"
+FTP_HOST = "place.holder.ip.address"
+FTP_PORT = 21
+FTP_USER = "placeholderUsername"
+FTP_PASS = "placeholderPassword"
 
-REMOTE_FILE = "1KB.zip"
 LOCAL_FILE = "2b.txt"
 
 PATH_ROOT = "/flash"
 PATH_REMOTE_UPLOAD = "upload"
 
-
-print(" +------------------------------------+")
-print(" | XBee MicroPython FTP Client Sample |")
-print(" +------------------------------------+\n")
+print(" +----------------------------------------+")
+print(" | XBee Micropython FTP PUT Client Sample |")
+print(" +----------------------------------------+\n")
 
 cellular = network.Cellular()
 
-print("- Waiting for the module to be connected to the cellular network... ",
-      end="")
+# Wait for cellular network connection.
+print("- Waiting for the module to connect to the cellular network... ", end="")
 while not cellular.isconnected():
     time.sleep(5)
 print("[OK]")
 
 # Connect to the FTP server.
 print("- Connecting to FTP server... ", end="")
-ftp_conn = uftp.FTP(host=FTP_HOST)
+ftp_conn = uftp.FTP(host=FTP_HOST, port=FTP_PORT)
 ftp_conn.login(user=FTP_USER, passwd=FTP_PASS)
 print("[OK]")
 
-# Download a file from the FTP.
-print("- Retrieving file '%s' (%d bytes)... " % (REMOTE_FILE,
-                                                 ftp_conn.size(REMOTE_FILE)),
-      end="")
-start = time.time()
-with open("%s/%s" % (PATH_ROOT, REMOTE_FILE), "w") as local_file:
-    ftp_conn.retr(REMOTE_FILE, callback=local_file.write)
-print("[OK]")
-print("   * Time taken: %d seconds" % (time.time() - start))
-
-# Upload a file to the 'update' folder of the FTP.
+# Upload a file to the upload folder on the FTP server
 print("- Uploading file '%s'... " % LOCAL_FILE, end="")
 ftp_conn.cwd(PATH_REMOTE_UPLOAD)
 start = time.time()
@@ -70,7 +59,7 @@ ftp_conn.stor("%s/%s" % (PATH_ROOT, LOCAL_FILE), LOCAL_FILE)
 print("[OK]")
 print("   * Time taken: %d seconds" % (time.time() - start))
 
-# Close connection.
+# Close the connection to the FTP server
 print("- Closing FTP connection... ", end="")
 ftp_conn.cwd("..")
 ftp_conn.quit()
