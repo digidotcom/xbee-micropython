@@ -21,7 +21,8 @@
 """Provides access to global positioning data.
 
 **Note**: This module is currently only available on the Digi XBee 3 Global
-  LTE-M/NB-IoT module.
+  LTE-M/NB-IoT module, the Digi XBee 3 North America LTE Cat 1 and the
+  Digi XBee 3 Global LTE Cat 1.
 """
 
 from typing import (Callable, Optional)

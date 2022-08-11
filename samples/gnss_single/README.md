@@ -9,7 +9,7 @@ Requirements
 
 To run this example you need:
 
-* One XBee 3 Global LTE-M/NB-IoT Cellular module and GNSS antenna.
+* One XBee 3 Cellular module and GNSS antenna.
 * One carrier board for the radio module (XBIB-U-DEV or XBIB-C board).
 
 Setup
@@ -49,6 +49,8 @@ Supported platforms
 -------------------
 
 * Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: 11618
+* Digi XBee 3 Global LTE Cat 1 - minimum firmware version: 11519
+* Digi XBee 3 North America LTE Cat 1 - minimum firmware version: 41519
 
 License
 -------

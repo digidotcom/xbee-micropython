@@ -20,7 +20,7 @@ the **Digi XBee MicroPython PyCharm Plugin**). In any case, you will find
 information on how to get started with XBee and MicroPython in the
 [Digi MicroPython Programming Guide][doc].
 
-[Digi International][Digi] manages the project on GitHub as 
+[Digi International][Digi] manages the project on GitHub as
 [xbee-micropython][xbee-micropython].
 
 
@@ -39,6 +39,8 @@ devices:
 * Digi XBee Cellular 3G (firmware 1130B and later)
 * Digi XBee Cellular LTE Cat 1 (firmware 100B and later)
 * Digi XBee 3 Global LTE-M/NB-IoT (firmware 11618 and later)
+* Digi XBee 3 Global LTE Cat 1 (firmware 41519 and later)
+* Digi XBee 3 North America LTE Cat 1 (firmware 11519 and later)
 
 
 Organization
@@ -53,7 +55,7 @@ The repository is structured in the following folders:
 * **lib** - Files in the `lib/` directory mirror the structure you'd use when
   uploading to the XBee device.  For example, `lib/umqtt/simple.py` is the
   correct location for `import umqtt.simple` to work in your program.
-* **platforms** - This folder contains the definition and images for the 
+* **platforms** - This folder contains the definition and images for the
   Digi XBee products supporting MicroPython. This information is used by the
   **Digi XBee MicroPython PyCharm Plugin** to list the supported platforms.
 * **samples** - Files in the `samples/` directory are organized by feature or
