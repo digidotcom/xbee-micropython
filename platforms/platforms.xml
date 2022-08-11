@@ -31,4 +31,12 @@
         <icon>xbee3_cellular.png</icon>
         <category_id>xbee</category_id>
     </platform>
+    <platform id="Digi XBee 3 North America LTE Cat 1">
+        <icon>xbee3_cellular.png</icon>
+        <category_id>xbee</category_id>
+    </platform>
+    <platform id="Digi XBee 3 Global LTE Cat 1">
+        <icon>xbee3_cellular.png</icon>
+        <category_id>xbee</category_id>
+    </platform>
 </platforms>
