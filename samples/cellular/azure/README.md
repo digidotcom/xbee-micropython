@@ -27,6 +27,11 @@ ready:
    computer's USB port.
 2. Configure the value of IoTHubConnectionString to create a valid
    Azure IoT Hub endpoint to connect to.
+3. Configure the value of CA_CERTS to have the module validate the certificate
+   of the Azure IoT Hub endpoint.
+   The value should be the name of the certificate that was uploaded to the
+   XBee3 Cellular device.
+   (Set it to None, if no validation should take place)
 
 Run
 ---
@@ -52,6 +57,24 @@ publishing operations:
     - "Sending 10 messages to Azure..."
 
 Verify that the **Data** tab displays the 10 messages that were sent from the XBee3
+
+Notes
+-------
+
+Microsoft intends to switch from using the Baltimore CyberTrust CA Root for
+Azure IoT Hub and DPS, to using the DigiCert Global G2 CA root starting in February 2023.
+https://techcommunity.microsoft.com/t5/internet-of-things-blog/azure-iot-tls-critical-changes-are-almost-here-and-why-you/ba-p/2393169
+
+This requires changing the CA Root certificate that is used to validate
+the TLS connection, if example is set up to do so.
+
+Up until February 2023, this is the cert that should be uploaded
+to the XBee3 Cellular module:
+https://cacerts.digicert.com/BaltimoreCyberTrustRoot.crt.pem
+
+After February 2023, this is the cert that should be uploaded
+to the XBee3 Cellular module:
+https://cacerts.digicert.com/DigiCertGlobalRootG2.crt.pem
 
 Required libraries
 --------------------

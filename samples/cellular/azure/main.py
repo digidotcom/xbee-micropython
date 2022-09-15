@@ -9,6 +9,9 @@ Instructions:
    https://catalog.azureiotsolutions.com/docs?title=Azure/azure-iot-device-ecosystem/manage_iot_hub
  - The 'IoTHubConnectionString' in the script below needs to be filled in.
    This string can be found be using the Azure Device Explorer Tool.
+ - The 'CA_CERTS' in the script below needs to be filled in.
+   This string should be the Azure IoT Hub certificate file that was uploaded to the device,
+   or set this value to None to disable certificate checking.
  - Ensure that the umqtt/simple.py module is in the /flash/lib directory
    on the XBee Filesystem.
  - Ensure that the urllib/parse.py module is in the /flash/lib directory
@@ -34,7 +37,7 @@ def _default_call_back(topic, msg):
 
 
 class AzureMQTT:
-    def __init__(self, connection_string: str, policy_name=None, expiry: int = 36000):
+    def __init__(self, connection_string: str, policy_name=None, expiry: int = 36000, tls_params: dict = None):
         self.params = dict(field.split('=', 1) for field in connection_string.split(';'))
         required_keys = ["HostName", "DeviceId", "SharedAccessKey"]
         if any(k not in self.params for k in required_keys):
@@ -45,9 +48,10 @@ class AzureMQTT:
         self.username = "{host_name}/{device_id}/?api-version=2018-06-30".format(host_name=self.params["HostName"],
                                                                                  device_id=self.params["DeviceId"])
         self.password = self.sas_token
+        self.tls_params = tls_params
 
         self.mqtt_client = MQTTClient(client_id=self.params["DeviceId"], server=self.params["HostName"],
-                                      user=self.username, password=self.password, ssl=True)
+                                      user=self.username, password=self.password, ssl=True, ssl_params=self.tls_params)
         self._default_subscribe_string = "devices/{device_id}/messages/devicebound/#".format(device_id=self.params["DeviceId"])
 
     def _default_subscribe(self):
@@ -180,13 +184,18 @@ def main():
     if IoTHubConnectionString == "FILL_ME_IN":
         raise ValueError("You need to update IoTHubConnectionString using information in the Azure Device Explorer Tool")
 
+    CA_CERTS = "FILL_ME_IN"
+    if CA_CERTS == "FILL_ME_IN":
+        raise ValueError("You need to update CA_CERTS to the correct Cert file.  See Instructions section at top of file.")
+
     conn = network.Cellular()
     while not conn.isconnected():
         print("Waiting for network connection...")
         sleep(4)
     print("Network connected")
 
-    device = AzureMQTT(IoTHubConnectionString)
+    ca_certs = '/flash/cert/' + CA_CERTS if CA_CERTS else None
+    device = AzureMQTT(IoTHubConnectionString, tls_params=dict(ca_certs=ca_certs, certfile=None, keyfile=None))
     print("Connecting to Azure...")
     device.setup()
     print("Azure connected")
