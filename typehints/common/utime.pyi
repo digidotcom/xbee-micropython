@@ -158,3 +158,13 @@ def ticks_diff(ticks1: int, ticks2: int) -> int:
     :return: The difference between the given ticks values.
     """
     ...
+
+def tz_offset() -> int:
+    """
+    The offset of the local DST timezone, in seconds west of UTC, if one is defined.
+    This is negative if the local DST timezone is east of UTC (as in Western Europe, including the UK).
+    NOTE: This feature is only available on XBee Cellular
+    and XBee3 Cellular modules running firmware x1A or greater.
+    
+    :return: Returns offset DST timezone in seconds west of UTC.
+    """

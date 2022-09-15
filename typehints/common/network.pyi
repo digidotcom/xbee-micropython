@@ -18,7 +18,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from typing import Any, Dict, Optional, Tuple, Callable
+from typing import Any, Dict, Optional, Tuple, Callable, List
 
 try:
     # Python 3.8 (and PyCharm 2019.2.5 and newer) support TypedDict,
@@ -32,9 +32,17 @@ try:
         message: str
         sender: str
         timestamp: int
+    class _ScanDict(TypedDict):
+        serving_cell: bool
+        area: int
+        cell_id: int
+        mcc: str
+        mnc: str
+        signal: int
 except ImportError:
     from typing import Dict
     _SMSDict = Dict
+    _ScanDict = Dict
 
 
 class Cellular:
@@ -226,5 +234,59 @@ class Cellular:
             name) and values are float.
         :raises OSError ETIMEDOUT: Signal quality indicators could not be
             retrieved within five seconds.
+        """
+        ...
+
+    def scan(
+        self,
+        callback: Optional[Callable[[List[_ScanDict]], Any]] = None,
+        *,
+        deep: bool = False,
+    ) -> Optional[List[_ScanDict]]:
+        """
+        Scans for mobile cells in the vicinity and returns information about
+        the cells in the service area of the device. When called, the cell
+        module waits until all other communication is idle and then performs
+        the scan.
+
+        The information that can be reported by this function varies based on
+        the network technology of the module that you are using.
+
+        The maximum information available per entry in the list is as follows:
+
+        * ``serving_cell`` - If True, this is the current serving cell.
+        * ``area`` - Location Area Code as an int
+        * ``mcc`` - Mobile Country Code as a string
+        * ``mnc`` - Mobile Network Code as a string
+        * ``signal`` - Reference Signal Received Power (RSRP) in dBm as an int
+
+        **Note:** This is only available on XBee 3 Cellular products with
+        firmware ending in x1A or newer.
+
+        **Note:** When a deep scan is performed, any outstanding sockets or
+            other activity will be lost. Since registration is lost, no
+            "serving cell" information is provided, as the "serving cell" that
+            the device will re-join cannot be reported, and there is no
+            guarantee that the "serving cell" the device was on before network
+            registration was dropped will still be used. The duration of the
+            scan is approximately 25 seconds.
+
+        :param callback: A function that is called when the scan is complete.
+            If ``callback`` is None, the function blocks until the scan is
+            complete and returns the result directly.
+        :param deep: If true, a full scan is attempted, which requires dropping
+            network registration. A full scan can return more complete
+            information for all cells seen, which includes cells offered by
+            other carriers.
+        :returns: A list of dictionaries that represent each nearby tower,
+            or ``None`` if ``callback`` was provided.
+        :raises ValueError: One or more parameters was invalid.
+        :raises TypeError: Improper number or type of arguments. For example,
+            the callback has to be a function that takes one parameter.
+        :raises OSError:
+          * ``ENODEV`` - The modem is busy being updated.
+          * ``EBUSY`` - A scan is already in progress.
+          * ``ENOBUFS```- Out of resources.
+
         """
         ...
