@@ -169,7 +169,7 @@ class DataPoints(object):
         :param stream_name: The data stream name to which this data point is
             added.
         :param value: The value to assign to this data point. Currently the
-            only supported types are **integer** and **string**.
+            only supported types are **integer**, **float** and **string**.
         :param units: A string, specifying the units associated with data on
             this data stream. If this value is specified, it will overwrite
             the units field of the data stream in Digi Remote Manager.
