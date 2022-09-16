@@ -38,7 +38,7 @@ devices:
 * Digi XBee3 Cellular LTE Cat 1 (firmware x10 and later)
 * Digi XBee Cellular 3G (firmware 1130B and later)
 * Digi XBee Cellular LTE Cat 1 (firmware 100B and later)
-* Digi XBee 3 Global LTE-M/NB-IoT (firmware 11618 and later)
+* Digi XBee 3 Global LTE-M/NB-IoT (firmware x18 and later)
 * Digi XBee 3 Global LTE Cat 1 (firmware 41519 and later)
 * Digi XBee 3 North America LTE Cat 1 (firmware 11519 and later)
 
