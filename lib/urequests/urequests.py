@@ -4,16 +4,30 @@ Based on micropython-urequests 0.6 from micropython-lib:
 
 Copyright (c) 2013, 2014 micropython-lib contributors
 MIT License
+
+NOTE: Added support for HTTP/1.1, which will be used, if specified by setting
+      request_1_1 to True in the options for the request() command.
+
+NOTE: Due to the extremely small amount of memory available for use on the
+      XBee Cellular products, it is not always possible to fit the entire
+      payload of a given request in the resulting content/text variable.
+      Because of this, a read() function has been added to the Response.
+      Using read(), you can receive data in specified sized data chunks,
+      so as to not run out of memory.
+      When this functionality is used, the content and text values on
+      the Response class are not longer valid.
 """
 
 import usocket
 
 class Response:
 
-    def __init__(self, f):
+    def __init__(self, f, chunked_response):
         self.raw = f
         self.encoding = "utf-8"
         self._cached = None
+        self._chunked_response = chunked_response
+        self._chunk_size = 0
 
     def close(self):
         if self.raw:
@@ -21,11 +35,45 @@ class Response:
             self.raw = None
         self._cached = None
 
+    def read(self, sz=16 * 1024):
+        if self._chunked_response:
+            if self._chunk_size == 0:
+                l = self.raw.readline()
+                #print("chunk line:", l)
+                if l == b"":
+                    return b""
+                l = l.split(b";", 1)[0]
+                self._chunk_size = int(l, 16)
+                #print("chunk size:", self._chunk_size)
+                if self._chunk_size == 0:
+                    # End of message
+                    sep = self.raw.read(2)
+                    assert sep == b"\r\n"
+                    return b""
+            data = self.raw.read(min(sz, self._chunk_size))
+            self._chunk_size -= len(data)
+            if self._chunk_size == 0:
+                sep = self.raw.read(2)
+                assert sep == b"\r\n"
+        else:
+            data = self.raw.read(sz)
+        return data
+
     @property
     def content(self):
         if self._cached is None:
             try:
-                self._cached = self.raw.read()
+                if serf._chunked_response:
+                    while True:
+                        data = self.read()
+                        if data == b"":
+                            break
+                        if self._cached is None:
+                            self._cached = data
+                        else:
+                            self._cached += data
+                else:
+                    self._cached = self.raw.read()
             finally:
                 self.raw.close()
                 self.raw = None
@@ -41,7 +89,7 @@ class Response:
 
 
 def request(method, url, data=None, json=None, headers={}, stream=None,
-            verify=None, cert=None):
+            verify=None, cert=None, request_1_1=False):
     try:
         scheme, _, host, path = url.split("/", 3)
     except ValueError:
@@ -72,9 +120,13 @@ def request(method, url, data=None, json=None, headers={}, stream=None,
                 wrap_params['ca_certs'] = verify
             s = ussl.wrap_socket(s, **wrap_params)
         s.connect((host, port))
-        s.write(b"%s /%s HTTP/1.0\r\n" % (method, path))
+        if request_1_1:
+            s.write(b"%s /%s HTTP/1.1\r\n" % (method, path))
+        else:
+            s.write(b"%s /%s HTTP/1.0\r\n" % (method, path))
         if not "Host" in headers:
             s.write(b"Host: %s\r\n" % host)
+        s.write(b"Connection: close\r\n")
         # Iterate over keys to avoid tuple alloc
         for k in headers:
             s.write(k)
@@ -99,6 +151,7 @@ def request(method, url, data=None, json=None, headers={}, stream=None,
         reason = ""
         if len(l) > 2:
             reason = l[2].rstrip()
+        chunked = False
         while True:
             l = s.readline()
             if not l or l == b"\r\n":
@@ -106,14 +159,14 @@ def request(method, url, data=None, json=None, headers={}, stream=None,
             #print(l)
             if l.startswith(b"Transfer-Encoding:"):
                 if b"chunked" in l:
-                    raise ValueError("Unsupported " + l)
+                    chunked = True
             elif l.startswith(b"Location:") and not 200 <= status <= 299:
                 raise NotImplementedError("Redirects not yet supported")
     except OSError:
         s.close()
         raise
 
-    resp = Response(s)
+    resp = Response(s, chunked)
     resp.status_code = status
     resp.reason = reason
     return resp
