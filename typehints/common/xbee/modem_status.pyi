@@ -18,7 +18,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from typing import Any, Optional, Callable
+from typing import Optional, Callable
+
 
 def callback(callback: Optional[Callable[[int], None]], /) -> None:
     """
@@ -28,7 +29,8 @@ def callback(callback: Optional[Callable[[int], None]], /) -> None:
     This callback takes one parameter, the integer value of the modem status.
 
     **Note: This is only available on XBee 3 RF products with version
-    ending in 0B or newer.**
+    ending in 0B or newer, and XBee 3 Cellular products with version
+    ending in 1B or newer.**
 
     :param callback: A function that is called whenever a modem status is
         received.
@@ -37,11 +39,16 @@ def callback(callback: Optional[Callable[[int], None]], /) -> None:
     """
     ...
 
+
 def receive() -> Optional[int]:
     """
     Returns a modem status if one is available. This function can only
     be called if no callback is registered, otherwise it will raise an
     exception.
+
+    **Note: This is only available on XBee 3 RF products with version
+    ending in 0B or newer, and XBee Cellular and XBee 3 Cellular products
+    with version ending in 1B or newer.**
 
     :return: The integer value of a modem status, if available.
     """
