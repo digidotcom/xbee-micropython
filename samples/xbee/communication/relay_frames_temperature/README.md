@@ -18,7 +18,10 @@ To run this example you need:
 * One carrier board for the radio module (XBIB-C board).
 * The XCTU application, version 6.4.2 or newer
   (available at www.digi.com/xctu).
-* An Android or iOS device with the 'XBee BLE MicroPython' sample installed.
+* An Android or iOS device with either:
+  * The Digi XBee Mobile application, available from Google Play or
+    the App Store
+  * Or the 'XBee BLE MicroPython' sample of the Digi Mobile SDK
 
 
 Setup
@@ -38,8 +41,17 @@ Run
 ---
 
 The example is already configured, so all you need to do is build and launch
-the project. Then, launch the 'XBee BLE MicroPython' sample of the Digi Mobile
-SDK and follow the instructions explained in that sample's README file.
+the project.
+
+If using the Digi XBee Mobile app, launch the application, connect to the
+XBee, and under the Actions menu, open the Relay Console.
+
+If using the 'XBee BLE MicroPython' sample of the Digi Mobile SDK,
+launch the application and follow the instructions explained in that sample's
+README file.
+
+Every five seconds, a new message from the XBee will appear, reporting the
+temperature and humidity readings.
 
 Supported platforms
 -------------------
