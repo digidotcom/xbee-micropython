@@ -83,11 +83,28 @@ To simplify file management on your XBee Cellular and to allow re-use of the
 same code on multiple devices, give your files shorter names (we use these
 names in the included samples):
 
+
+
+
 | Original Filename                                        | Shortened Name |
 |----------------------------------------------------------|----------------|
 | 01234abcde-certificate.pem.crt                                 | aws.crt  |
 | 01234abcde-private.pem.key                                     | aws.key* |
-| VeriSign-Class 3-Public-Primary-Certification-Authority-G5.pem | aws.ca** |
+| See selecting aws.ca certficate below                          | aws.ca** |
+
+
+Selecting the aws.ca certificate:
+
+If you are using a XBee Cellular Cat 1 or Cat 4 use the
+"Starfield Class 2 Certification Authority Root Certificate" for aws.ca
+that can be found at
+https://ssl-ccp.secureserver.net/repository/sf-class2-root.crt
+
+If you are using a XBee Cellular 3G or LTE-M/NB-IoT use the
+"Starfield Services Root Certificate Authority - G2" for aws.ca
+that can be found at
+https://www.amazontrust.com/repository/SFSRootCAG2.pem
+
 
 
 Use XCTU or ATFS commands in a terminal emulator to upload the three files
