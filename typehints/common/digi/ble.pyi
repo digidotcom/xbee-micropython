@@ -74,18 +74,26 @@ _DescriptorTuple = Tuple[_DescriptorHandle, 'UUID']
 
 __all__ = (
     'ADDR_TYPE_PUBLIC', 'ADDR_TYPE_RANDOM', 'ADDR_TYPE_PUBLIC_IDENTITY',
-    'ADDR_TYPE_RANDOM_IDENTITY', 'PROP_BROADCAST', 'PROP_READ',
+    'ADDR_TYPE_RANDOM_IDENTITY', 'ADDR_TYPE_STATIC', 'ADDR_TYPE_RANDOM_RESOLVABLE',
+    'ADDR_TYPE_RANDOM_NONRESOLVABLE', 'PROP_BROADCAST', 'PROP_READ',
     'PROP_WRITE', 'PROP_WRITE_NO_RESP', 'PROP_AUTH_SIGNED_WR',
     'PROP_NOTIFY', 'PROP_INDICATE', 'PAIRING_REQUIRE_MITM',
-    'PAIRING_REQUIRE_BONDING', 'PAIRING_DISABLE_LEGACY' 'active',
-    'config', 'gap_advertise', 'gap_scan', 'gap_connect',
-    'xbee_connect' 'UUID', )
+    'PAIRING_REQUIRE_BONDING', 'PAIRING_DISABLE_LEGACY',
+    'BLE_1M_PHY', 'BLE_2M_PHY', 'BLE_125K_CODED_PHY', 'BLE_500K_CODED_PHY',
+    'active', 'config', 'gap_advertise', 'gap_scan', 'gap_connect',
+    'xbee_connect', 'UUID',
+    'format_address', 'parse_address',
+)
 
 
 ADDR_TYPE_PUBLIC: int = ...
 ADDR_TYPE_RANDOM: int = ...
 ADDR_TYPE_PUBLIC_IDENTITY: int = ...
 ADDR_TYPE_RANDOM_IDENTITY: int = ...
+
+ADDR_TYPE_STATIC: int = ...
+ADDR_TYPE_RANDOM_RESOLVABLE: int = ...
+ADDR_TYPE_RANDOM_NONRESOLVABLE: int = ...
 
 PROP_BROADCAST: int = ...
 PROP_READ: int = ...
@@ -98,6 +106,11 @@ PROP_INDICATE: int = ...
 PAIRING_REQUIRE_MITM: int = ...
 PAIRING_REQUIRE_BONDING: int = ...
 PAIRING_DISABLE_LEGACY: int = ...
+
+BLE_1M_PHY: int = ...
+BLE_2M_PHY: int = ...
+BLE_125K_CODED_PHY: int = ...
+BLE_500K_CODED_PHY: int = ...
 
 
 def active(
@@ -181,6 +194,64 @@ def config(
         positional and keyword arguments cannot be mixed (i.e. you cannot
         specify a name as a string while applying a setting).
     :raises OSError: New configuration could not be applied.
+    """
+    ...
+
+
+def format_address(address: bytes, /) -> str:
+    r"""
+    Convert a BLE 48-bit MAC address (6 bytes) into a human-readable string.
+
+    The ``"address"`` values in advertisement data collected with ``gap_scan``
+    are an example of suitable inputs to this function.
+
+    Example::
+
+        ble.format_address(b'\x01\x25\xb7\x93\x84\x6f')
+        # "01:25:B7:93:84:6F"
+
+    **Note:**
+
+    The ``format_address`` function is new in the following firmware versions:
+        * XBee3 Cellular: version x1C
+
+    :param address: ``bytes`` object of length 6, representing the raw 48-bit
+                    BLE MAC address of a device. Note that ``format_address``
+                    can only take this parameter as a positional argument,
+                    not a keyword argument.
+    :return: a ``str``, formatted as ``"XX:XX:XX:XX:XX:XX"``
+    :raises TypeError: ``address`` is not of the correct type
+    :raises ValueError: ``address`` is of the wrong length
+    """
+    ...
+
+
+def parse_address(address: str, /) -> bytes:
+    r"""
+    Convert a human-readable BLE MAC address string into a 48-bit
+    (6 byte) value.
+
+    The resulting ``bytes`` value is suitable for use in a call to
+    ``gap_connect``.
+
+    Example::
+
+        address = ble.parse_address("01:25:B7:93:84:6F")
+        conn = ble.gap_connect(ble.ADDR_TYPE_PUBLIC, address)
+
+    **Note:**
+
+    The ``parse_address`` function is new in the following firmware versions:
+        * XBee3 Cellular: version x1C
+
+    :param address: ``str`` object, consisting of 12 hexadecimal digits and
+                    up to 5 colon (``:``) characters. Note that
+                    ``parse_address`` can only take this parameter as a
+                    positional argument, not a keyword argument.
+    :return: a ``bytes``, with the 48-bit form of ``address``
+    :raises TypeError: ``address`` is not of the correct type
+    :raises ValueError: ``address`` is too short, too long, or does not contain
+                        exactly 12 hexadecimal digits
     """
     ...
 
@@ -637,6 +708,44 @@ class _gap_connect(ContextManager):
             ENOTCONN, the connection was lost)
         """
 
+    def phyconfig(
+        self,
+        preferred: int,
+        accepted: int,
+    ) -> int:
+        """
+        Update the BLE PHY used for this connection if it is also supported by
+        the remote device.
+
+        **Update PHY configuration**
+
+        To attempt to change the PHY of the connection to the 2M PHY call ``phyconfig``
+        and set the preferred phy. For example::
+
+            connection.phyconfig(preferred=BLE_2M_PHY, accepted=BLE_2M_PHY)
+
+        :param preferred: Used for specifying the PHYs that the local module
+            will attempt to negotiate with the connected module. This field is a
+            bitfield and can have one or more of BLE_1M_PHY, BLE_2M_PHY, BLE_125K_CODED_PHY
+            or BLE_500K_CODED_PHY set.
+        :param accepted: Used for specifying the PHYs that the module
+            can accept in a remote initiated PHY update request. A PHY update will not
+            occur if none of the accepted PHYs are present in the request. This field is a
+            bitfield and can have one or more of BLE_1M_PHY, BLE_2M_PHY, BLE_CODED_PHY (0x4),
+            or BLE_ANY_PHY (0xFF) set.
+        :return: The phy the connection negotiated to use.
+        :raises ValueError: One or more parameters was invalid.
+        :raises OSError: New configuration could not be applied (typically
+            ENOTCONN, the connection was lost)
+
+        The ``phyconfig`` function is new in the following firmware versions:
+            * XBee3 ZigBee: version 1014
+            * XBee3 802.15.4: version 2014
+            * XBee3 DigiMesh 2.4: version 3014
+            * XBee3 Cellular: version x1C
+        """
+        ...
+
     def disconnect_code(self) -> int:
         """
         When called on a connection which has been closed, returns a value
@@ -933,7 +1042,7 @@ class _gap_connect(ContextManager):
         """
         ...
 
- def __enter__(self) -> _gap_connect:
+    def __enter__(self) -> _gap_connect:
         """
         Enter the runtime context for using this GAP connection object as a context manager
         (using the ``with`` statement).
