@@ -28,15 +28,15 @@
         <category_id>xbee</category_id>
     </platform>
     <platform id="Digi XBee 3 Global LTE-M/NB-IoT">
-        <icon>xbee3_cellular.png</icon>
+        <icon>xbee3_global_ltem_nbiot.png</icon>
         <category_id>xbee</category_id>
     </platform>
     <platform id="Digi XBee 3 North America LTE Cat 1">
-        <icon>xbee3_cellular.png</icon>
+        <icon>xbee3_global_cat1.png</icon>
         <category_id>xbee</category_id>
     </platform>
     <platform id="Digi XBee 3 Global LTE Cat 1">
-        <icon>xbee3_cellular.png</icon>
+        <icon>xbee3_global_cat1.png</icon>
         <category_id>xbee</category_id>
     </platform>
 </platforms>
