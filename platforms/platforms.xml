@@ -39,4 +39,8 @@
         <icon>xbee3_global_cat1.png</icon>
         <category_id>xbee</category_id>
     </platform>
+    <platform id="Digi XBee BLU">
+        <icon>xbee_blu.png</icon>
+        <category_id>xbee</category_id>
+    </platform>
 </platforms>
