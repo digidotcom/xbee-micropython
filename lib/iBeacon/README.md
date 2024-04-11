@@ -17,3 +17,4 @@ Supported platforms
 * Digi XBee 3 North America LTE Cat 1 - minimum firmware version: 41519
 * Digi XBee3 Zigbee 3 - minimum firmware version: 1009
 * Digi XBee3 802.15.4 - minimum firmware version: 200A
+* Digi XBee BLU - minimum firmware version: 4000

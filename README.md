@@ -41,6 +41,7 @@ devices:
 * Digi XBee 3 Global LTE-M/NB-IoT (firmware x18 and later)
 * Digi XBee 3 Global LTE Cat 1 (firmware 41519 and later)
 * Digi XBee 3 North America LTE Cat 1 (firmware 11519 and later)
+* Digi XBee BLU (firmware 4000 and later)
 
 
 Organization
@@ -90,8 +91,7 @@ document.
 License
 -------
 
-This software is open-source software. Copyright Digi International, 2018,
-2019.
+This software is open-source software. Copyright Digi International, 2018-2024.
 
 Samples within `samples/` folder, stub files in `typehints/` folder and most of
 the source code in the `lib/` directory is covered by the
