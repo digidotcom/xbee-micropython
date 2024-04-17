@@ -82,12 +82,11 @@ Supported platforms
 * Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: x18
 * Digi XBee 3 Global LTE Cat 1 - minimum firmware version: 11519
 * Digi XBee 3 North America LTE Cat 1 - minimum firmware version: 41519
-* Digi XBee BLU - minimum firmware version: 4000
 
 License
 -------
 
-Copyright (c) 2019-2024, Digi International, Inc.
+Copyright (c) 2019, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
