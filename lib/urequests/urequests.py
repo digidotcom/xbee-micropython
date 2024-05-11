@@ -63,7 +63,7 @@ class Response:
     def content(self):
         if self._cached is None:
             try:
-                if serf._chunked_response:
+                if self._chunked_response:
                     while True:
                         data = self.read()
                         if data == b"":
