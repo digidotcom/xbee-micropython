@@ -17,3 +17,4 @@ Supported platforms
 * Digi XBee 3 Global LTE-M/NB-IoT - minimum firmware version: x18
 * Digi XBee 3 Global LTE Cat 1 - minimum firmware version: 11519
 * Digi XBee 3 North America LTE Cat 1 - minimum firmware version: 41519
+* Digi XBee Wi-SUN - minimum firmware version: B000
