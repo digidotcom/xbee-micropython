@@ -21,7 +21,7 @@ To run this example you need:
 
 * One XBee3 radio module with MicroPython support.
 * One carrier board for the radio module (XBIB-U-DEV or XBIB-C board).
-* The XCTU application (available at www.digi.com/xctu).
+* Digi XBee Studio (available at www.digi.com/xbee-studio).
 
 Setup
 -----
@@ -30,8 +30,8 @@ Make sure the hardware is set up correctly:
 
 1. Plug the XBee3 radio module into the XBee adapter and connect it to your
    computer's USB port.
-2. Using XCTU configure the sleep options of the module to **sleep for 10
-   seconds** and **wake for 4 seconds**. To do so configure the following
+2. Using XBee Studio, configure the sleep options of the module to **sleep for
+   10 seconds** and **wake for 4 seconds**. To do so configure the following
    parameters:
 
        SM: Cyclic Sleep [4] - Wakes on timer expiration
@@ -92,7 +92,7 @@ the mode wants to go to sleep.
     ...
 
 After you've finished testing the example remember to restore the sleep options
-of the module to their default values using XCTU.
+of the module to their default values using XBee Studio.
 
 Supported platforms
 -------------------
@@ -112,7 +112,7 @@ Supported platforms
 License
 -------
 
-Copyright (c) 2019-2024, Digi International, Inc.
+Copyright (c) 2019-2025, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

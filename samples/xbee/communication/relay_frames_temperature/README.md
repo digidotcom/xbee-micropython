@@ -16,8 +16,7 @@ To run this example you need:
 
 * One XBee3 radio module with MicroPython support.
 * One carrier board for the radio module (XBIB-C board).
-* The XCTU application, version 6.4.2 or newer
-  (available at www.digi.com/xctu).
+* Digi XBee Studio (available at www.digi.com/xbee-studio).
 * An Android or iOS device with either:
   * The Digi XBee Mobile application, available from Google Play or
     the App Store
@@ -33,9 +32,9 @@ Make sure the hardware is set up correctly:
    computer's USB port.
 
 2. Enable the Bluetooth interface of the XBee device and configure the
-   Bluetooth authentication using XCTU.
+   Bluetooth authentication using XBee Studio.
    For further information on how to perform this task, refer to the
-   XCTU user manual.
+   XBee Studio user manual.
 
 Run
 ---
@@ -68,7 +67,7 @@ Supported platforms
 License
 -------
 
-Copyright (c) 2019, Digi International, Inc.
+Copyright (c) 2019-2025, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

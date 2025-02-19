@@ -20,6 +20,7 @@ To run this example you need:
 * Carrier boards for each radio module (XBIB-U-DEV or XBIB-C board).
 * One standalone HDC1080 humidity and temperature sensor (not necessary
   if you are using an XBIB-C carrier board).
+* Digi XBee Studio (available at www.digi.com/xbee-studio).
 
 Setup
 -----
@@ -74,14 +75,14 @@ Make sure the hardware is set up correctly on the sensor module:
 Run
 ---
 
-Open the aggregator in XCTU's API terminal so you can observe the frames
+Open the aggregator in XBee Studio's console so you can observe the frames
 output by the module, then compile and launch the application on the
 sensor module.
 
 The sensor module will begin to cyclically sleep: two seconds on, two
 seconds off. Each time the sensor module wakes, it will send a packet to
 the aggregator with the temperature measurement. Observe the
-transmissions received in XCTU.
+transmissions received in XBee Studio.
 
 Required libraries
 --------------------
@@ -96,7 +97,7 @@ Supported platforms
 License
 -------
 
-Copyright (c) 2020, Digi International, Inc.
+Copyright (c) 2020-2025, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

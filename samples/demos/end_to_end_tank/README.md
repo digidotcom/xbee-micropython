@@ -33,6 +33,7 @@ To run this example you need:
 * A smartphone running the corresponding mobile app of the demo.
 * A Digi Remote Manager account. Go to https://myaccount.digi.com/ to create it
   if you do not have one.
+* Digi XBee Studio (available at www.digi.com/xbee-studio).
 
 Setup
 -----
@@ -44,9 +45,10 @@ Make sure the hardware is set up correctly. For each XBee 3 Cellular module:
 2. Make sure the XBee3 cellular device is connected to Internet. To do so,
    verify that the Connection status LED is blinking or the value of the
    **AI** parameter is **0**.
-3. Using XCTU, enable the *"Always remain connected to Digi Remote Manager 
-   through TCP"* feature by setting the **MO** parameter to **7**. This way The
-   device remains connected to Digi Remote Manager while you test the sample.
+3. Using XBee Studio, enable the *"Always remain connected to Digi Remote
+   Manager through TCP"* feature by setting the **MO** parameter to **7**. This
+   way the device remains connected to Digi Remote Manager while you test the
+   sample.
 4. Make sure the XBee3 cellular device is connected to Digi Remote Manager. To
    do so, verify that the value of the **DI** parameter is **0**, **5** or
    **6**.
@@ -72,7 +74,7 @@ Supported platforms
 License
 -------
 
-Copyright (c) 2021, Digi International, Inc.
+Copyright (c) 2021-2025, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -11,7 +11,7 @@ To run this example you need:
 
 * Two XBee3 radio modules with MicroPython support.
 * Two carrier boards for the radio modules (XBIB-U-DEV or XBIB-C board).
-* The XCTU application (available at www.digi.com/xctu).
+* Digi XBee Studio (available at www.digi.com/xbee-studio).
 
 Setup
 -----
@@ -38,11 +38,9 @@ launch the application.
 Then, you need to send a data frame to the receiver module from the sender one.
 Follow these steps to do so:
 
-1. Launch the XCTU application.
-2. Add the sender XBee module to XCTU.
-3. Once the module is added, change to the **Consoles** working mode and open
-   the serial connection.
-4. Create and add a frame using the **Frames Generator** tool with the following
+1. Open XBee Studio and wait until the sender XBee module is discovered.
+2. In the left menu, go to the **XBee Console** page and open the connection.
+3. Create and add an API frame to the **Send data** list with the following
    parameters:
 
        - Frame type:             0x10 - Transmit request
@@ -53,7 +51,7 @@ Follow these steps to do so:
        - Options:                00
        - RF data (ASCII):        Hello XBee!
 
-5. Send this frame by selecting it and clicking the **Send selected frame**
+4. Send this packet by selecting it and clicking the **Send selected packet**
    button.
 
 When the data frame is sent, verify that a line with the sender address and the
@@ -73,7 +71,7 @@ Supported platforms
 License
 -------
 
-Copyright (c) 2019, Digi International, Inc.
+Copyright (c) 2019-2025, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

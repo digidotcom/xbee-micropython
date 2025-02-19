@@ -107,8 +107,8 @@ https://www.amazontrust.com/repository/SFSRootCAG2.pem
 
 
 
-Use XCTU or ATFS commands in a terminal emulator to upload the three files
-to the `cert/` directory on your XBee.
+Use XBee Studio or ATFS commands in a terminal emulator to upload the three
+files to the `cert/` directory on your XBee.
 
 *For security, you should upload the `aws.key` as a secure file (using
 `ATFS XPUT`).

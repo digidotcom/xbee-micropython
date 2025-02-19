@@ -14,7 +14,7 @@ To run this example you need:
 * One carrier board for the radio module (XBIB-U-DEV or XBIB-C board).
 * A Digi Remote Manager account. XBee3 Cellular module does not need to be
   registered or connected to Digi Remote Manager.
-* The XCTU application (available at www.digi.com/xctu).
+* Digi XBee Studio (available at www.digi.com/xbee-studio).
 
 Setup
 -----
@@ -62,7 +62,7 @@ Supported platforms
 License
 -------
 
-Copyright (c) 2021, Digi International, Inc.
+Copyright (c) 2021-2025, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

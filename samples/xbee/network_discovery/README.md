@@ -14,7 +14,7 @@ To run this example you need:
 
 * At least two XBee3 radio modules with MicroPython support.
 * At least two carrier boards for the radio modules (XBIB-U-DEV or XBIB-C board).
-* The XCTU application (available at www.digi.com/xctu).
+* Digi XBee Studio (available at www.digi.com/xbee-studio).
 
 Setup
 -----
@@ -49,7 +49,7 @@ Supported platforms
 License
 -------
 
-Copyright (c) 2019, Digi International, Inc.
+Copyright (c) 2019-2025, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

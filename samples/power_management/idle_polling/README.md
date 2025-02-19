@@ -26,6 +26,7 @@ To run this example you need:
 
 * Two XBee 3 Zigbee modules with MicroPython support.
 * Carrier boards for each radio module (XBIB-U-DEV or XBIB-C board).
+* Digi XBee Studio (available at www.digi.com/xbee-studio).
 
 
 Setup
@@ -36,7 +37,7 @@ Set up a network with two modules:
 * One module is the *coordinator*, which will receive the sensor readings.
   Configure the following AT commands on the coordinator:
   * Set **AP** to 1 to enable API mode, making it easier to see transmissions
-    from the client using XCTU.
+    from the client using XBee Studio.
   * Set **CE** to 1 to make the device a coordinator.
   * Set **SP** to 0x7D0 (20 seconds). This indicates how long end devices will
     go between polls, and is used to determine the timeout for transmissions.
@@ -52,8 +53,9 @@ end device is blinking and querying the **AI** command returns 0).
 Run
 ---
 
-Open the coordinator in XCTU's API terminal so you can observe the frames output
-by the module, then compile and launch the application on the sensor module.
+Open the coordinator in XBee Studio's console so you can observe the frames
+output by the module, then compile and launch the application on the sensor
+module.
 
 Observe the output from MicroPython on the sensor module. The module will wake
 every 5 seconds, take a reading, and go back to sleep. Every 4th time the module
@@ -73,7 +75,7 @@ Supported platforms
 License
 -------
 
-Copyright (c) 2020, Digi International, Inc.
+Copyright (c) 2020-2025, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

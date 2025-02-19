@@ -14,8 +14,7 @@ To run this example you need:
 
 * One XBee3 radio module with MicroPython support.
 * One carrier board for the radio module (XBIB-U-DEV or XBIB-C board).
-* The XCTU application, version 6.4.2 or newer
-  (available at www.digi.com/xctu).
+* Digi XBee Studio (available at www.digi.com/xbee-studio).
 
 Setup
 -----
@@ -33,22 +32,22 @@ the project. Once the application is running (application header is displayed
 in the XBee REPL console), execute the following steps to test it:
 
 1. Disconnect the XBee REPL console.
-2. Open XCTU application and add your XBee device to the list of radio modules.
-3. Change the operating mode of the module to **API** by configuring the **AP**
-   setting with **1**.
-4. Switch to the **Consoles** working mode and open the serial connection with
-   the module so you can see frames when they are received.
+2. Open XBee Studio and wait until your XBee device is discovered.
+3. Click on it and change its operating mode to **API** using the
+   **Operating mode** quick action.
+4. In the left menu, go to the **XBee Console** page and open the connection
+   with the module so you can see frames when they are received.
 5. Press the **SW2** button (if you have an XBIB-U-DEV carrier board) or the
    **Comm DIO0** one (if you have an XBIB-C).
-6. In the XCTU console, verify that a new **User Data Relay Output** frame is
-   received with the following parameters:
+6. In the XBee Studio console, verify that a new **User Data Relay Output**
+   packet is received with the following parameters:
 
        - Frame type:       AD (User Data Relay Output)
        - Interface:        02 (MicroPython)
        - RF data (ASCII):  Button pressed
 
 When finished, restore the operating mode of the module to **MicroPython**
-by configuring the **AP** setting with **4** using XCTU.
+using the **Operating mode** quick action of XBee Studio.
 
 Supported platforms
 -------------------
@@ -68,7 +67,7 @@ Supported platforms
 License
 -------
 
-Copyright (c) 2019-2024, Digi International, Inc.
+Copyright (c) 2019-2025, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

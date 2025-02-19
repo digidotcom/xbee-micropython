@@ -25,6 +25,7 @@ To run this example you need:
 
 * Two XBee 3 modules with MicroPython support.
 * Carrier boards for each radio module (XBIB-U-DEV or XBIB-C board).
+* Digi XBee Studio (available at www.digi.com/xbee-studio).
 
 
 Setup
@@ -43,8 +44,9 @@ Set up a network with two modules:
 Run
 ---
 
-Open the aggregator in XCTU's API terminal so you can observe the frames output
-by the module, then compile and launch the application on the sensor module.
+Open the aggregator in XBee Studio's console so you can observe the frames
+output by the module, then compile and launch the application on the sensor
+module.
 
 Observe the output from MicroPython on the sensor module. The module will wake
 every 5 seconds, take a reading, and go back to sleep. Every 4th time the module
@@ -65,7 +67,7 @@ Supported platforms
 License
 -------
 
-Copyright (c) 2020, Digi International, Inc.
+Copyright (c) 2020-2025, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

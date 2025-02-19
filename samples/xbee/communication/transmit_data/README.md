@@ -11,7 +11,7 @@ To run this example you need:
 
 * Two XBee3 radio modules with MicroPython support.
 * Two carrier boards for the radio modules (XBIB-U-DEV or XBIB-C board).
-* The XCTU application (available at www.digi.com/xctu).
+* Digi XBee Studio (available at www.digi.com/xbee-studio).
 
 Setup
 -----
@@ -32,22 +32,21 @@ Make sure the hardware is set up correctly:
 Run
 ---
 
-Before launching the application, you need to set up XCTU to see the data
+Before launching the application, you need to set up XBee Studio to see the data
 received by the receiver module. Follow these steps to do so:
 
-1. Launch the XCTU application.
-2. Add the receiver XBee module to XCTU.
-3. Once the module is added, change to the **Consoles** working mode and open
-   the serial connection.
-   
+1. Launch XBee Studio.
+2. Wait until the receiver XBee module is discovered and click on it.
+3. In the left menu, go to the **XBee Console** page and open the connection.
+
 Finally, compile and launch the MicroPython application. It prints out the
 status of the operation in the console:
 
     Sending data to 0013A200XXXXXXXX >> Hello XBee!
     Data sent successfully
 
-Verify that a new **Receive packet** has been received in the XCTU console.
-Select it and review the details, some of them similar to:
+Verify that a new **Receive packet** has been received in the XBee Studio
+console. Select it and review the details, some of them similar to:
 
     - Start delimiter:         7E
     - Length:                  Depends on the XBee protocol
@@ -65,7 +64,7 @@ Supported platforms
 License
 -------
 
-Copyright (c) 2019, Digi International, Inc.
+Copyright (c) 2019-2025, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

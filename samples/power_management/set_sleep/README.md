@@ -24,6 +24,7 @@ To run this example you need:
 
 * One XBee3 radio module with MicroPython support.
 * One carrier board for the radio module (XBIB-U-DEV or XBIB-C board).
+* Digi XBee Studio (available at www.digi.com/xbee-studio).
 
 Setup
 -----
@@ -32,9 +33,9 @@ Make sure the hardware is set up correctly:
 
 1. Plug the XBee3 radio module into the XBee adapter and connect it to your
    computer's USB port.
-2. Using XCTU configure the sleep mode (**SM**) of the module to be managed
-   from MicroPython. Depending on the module you have, the value of the **SM**
-   setting changes:
+2. Using XBee Studio, configure the sleep mode (**SM**) of the module to be
+   managed from MicroPython. Depending on the module you have, the value of the
+   **SM** setting changes:
 
        Cellular devices:  SM = Normal [0]
        RF devices:        SM = MicroPython Sleep [6]
@@ -88,7 +89,7 @@ Supported platforms
 License
 -------
 
-Copyright (c) 2019-2024, Digi International, Inc.
+Copyright (c) 2019-2025, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -22,7 +22,7 @@ To run this example you need:
 * One XBee3 cellular module with MicroPython support.
 * One carrier board for the radio module (XBIB-U-DEV or XBIB-C board).
 * A Digi Remote Manager account with the XBee3 cellular device registered in.
-* The XCTU application (available at www.digi.com/xctu).
+* Digi XBee Studio (available at www.digi.com/xbee-studio).
 
 Setup
 -----
@@ -34,9 +34,10 @@ Make sure the hardware is set up correctly:
 2. Make sure the XBee3 cellular device is connected to Internet. To do so,
    verify that the Connection status LED is blinking or the value of the
    **AI** parameter is **0**.
-3. Using XCTU, enable the *"Always remain connected to Digi Remote Manager
-   through TCP"* feature by setting the **MO** parameter to **7**. This way The
-   device remains connected to Digi Remote Manager while you test the sample.
+3. Using XBee Studio, enable the *"Always remain connected to Digi Remote
+   Manager through TCP"* feature by setting the **MO** parameter to **7**. This
+   way The device remains connected to Digi Remote Manager while you test the
+   sample.
 4. Make sure the XBee3 cellular device is connected to Digi Remote Manager. To
    do so, verify that the value of the **RI** parameter is **0**.
 
@@ -97,7 +98,7 @@ Supported platforms
 License
 -------
 
-Copyright (c) 2019, Digi International, Inc.
+Copyright (c) 2019-2025, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
