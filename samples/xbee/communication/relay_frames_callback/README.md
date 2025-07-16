@@ -72,6 +72,7 @@ Supported platforms
 * Digi XBee3 Zigbee 3 - minimum firmware version: 100B
 * Digi XBee3 802.15.4 - minimum firmware version: 2008
 * Digi XBee BLU - minimum firmware version: 4000
+* Digi XBee Wi-SUN - minimum firmware version: B000
 
 License
 -------

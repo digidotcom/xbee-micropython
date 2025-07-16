@@ -45,11 +45,12 @@ Supported platforms
 * Digi XBee3 802.15.4 - minimum firmware version: 200A
 * Digi XBee3 DigiMesh 2.4 - minimum firmware version: 300A
 * Digi XBee BLU - minimum firmware version: 4000
+* Digi XBee Wi-SUN - minimum firmware version: B000
 
 License
 -------
 
-Copyright (c) 2020-2024, Digi International, Inc.
+Copyright (c) 2019-2025, Digi International, Inc.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -82,4 +82,12 @@
             <drm_type>XBee BLU</drm_type>
         </drm_types>
     </platform>
+    <platform id="Digi XBee Wi-SUN">
+        <icon>xbee_wisun.png</icon>
+        <category_id>xbee</category_id>
+        <drm_types>
+            <drm_type>XBee Wi-SUN TH</drm_type>
+            <drm_type>XBee Wi-SUN</drm_type>
+        </drm_types>
+    </platform>
 </platforms>
