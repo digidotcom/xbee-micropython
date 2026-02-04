@@ -42,7 +42,7 @@ devices:
 * Digi XBee 3 Global LTE Cat 1 (firmware 41519 and later)
 * Digi XBee 3 North America LTE Cat 1 (firmware 11519 and later)
 * Digi XBee BLU (firmware 4000 and later)
-* Digi XBee Wi-SUN (firmware version B00000 and later)
+* Digi XBee for Wi-SUN (firmware version B00000 and later)
 
 
 Organization

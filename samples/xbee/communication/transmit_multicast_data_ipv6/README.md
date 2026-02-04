@@ -73,7 +73,7 @@ XBee Studio console. Select it and review the details, some of them similar to:
 Supported platforms
 -------------------
 
-* Digi XBee Wi-SUN - minimum firmware version: B00000
+* Digi XBee for Wi-SUN - minimum firmware version: B00000
 
 License
 -------
