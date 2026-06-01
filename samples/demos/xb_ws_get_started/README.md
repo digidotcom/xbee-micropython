@@ -1,5 +1,5 @@
-Wi-SUN Get Started Sample Application
-=====================================
+XBee Wi-SUN Get Started Sample Application
+==========================================
 
 This example is part of the Digi's Wi-SUN Get Started. It demonstrates
 how to use the XBee Hive Wi-SUN and the XBee Wi-SUN modules to exchange
