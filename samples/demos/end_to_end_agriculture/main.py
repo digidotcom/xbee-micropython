@@ -137,7 +137,7 @@ valve_pos = DEFAULT_VALVE_POS
 
 identified = False
 finished = False
-simulate_temp = True
+simulate_temp_hum = False
 
 time_seconds = 0
 weather_condition = WEATHER_SUNNY
@@ -299,7 +299,7 @@ def relay_frame_callback(relay_frame):
     elif operation == OP_FINISH:
         print("- BLE: Finish request received.")
         # Disable BLE interface. This operation does not require a response.
-        xbee.atcmd(AT_CMD_BT, VALUE_DISABLED)
+        # xbee.atcmd(AT_CMD_BT, VALUE_DISABLED)
         # Write settings in the device.
         xbee.atcmd(AT_CMD_WR)
         finished = True
@@ -353,10 +353,10 @@ def get_temperature():
     """
     # Initialize variables.
     global temperature
-    global simulate_temp
+    global simulate_temp_hum
 
     # Check if the temperature has to be simulated or read from the I2C sensor.
-    if simulate_temp or sensor is None:
+    if simulate_temp_hum or sensor is None:
         time_minutes = int(time_seconds) / 60.0
 
         # Get the temperature based on the time of the day.
@@ -398,7 +398,7 @@ def get_temperature():
             temperature = sensor.read_temperature(True)
         except OSError:
             # If the read fails, change to simulation.
-            simulate_temp = True
+            simulate_temp_hum = True
             return get_temperature()
 
     return "%.2f" % temperature
@@ -413,42 +413,53 @@ def get_moisture():
     """
     # Initialize variables.
     global moisture
+    global simulate_temp_hum
 
-    time_minutes = int(time_seconds) / 60.0
+    # Check if the moisture has to be simulated or read from the I2C sensor.
+    if simulate_temp_hum or sensor is None:
+        time_minutes = int(time_seconds) / 60.0
 
-    # Get the moisture based on the time of the day.
-    moisture = int(pow(time_minutes, 3) * 0.0000002 -
-                   pow(time_minutes, 2) * 0.000416 +
-                   time_minutes * 0.184 +
-                   52.75)
+        # Get the moisture based on the time of the day.
+        moisture = int(pow(time_minutes, 3) * 0.0000002 -
+                       pow(time_minutes, 2) * 0.000416 +
+                       time_minutes * 0.184 +
+                       52.75)
 
-    # Obtain the moisture delta value and determine if it should be added
-    # or substracted from the calculated one depending on the weather
-    # condition and the valve position.
-    if weather_condition == WEATHER_RAINY or valve_pos == 1:
-        # Calculate a variation delta. Max delta is 25.1 % (20 + 255 * 20)
-        delta = 20 + (int.from_bytes(os.urandom(1), "big") * 20) / 1000
-        add = True
-    elif weather_condition == WEATHER_SUNNY:
-        # Calculate a variation delta. Max delta is 12.04 % (10 + 255 * 8)
-        delta = 10 + (int.from_bytes(os.urandom(1), "big") * 8) / 1000
-        add = False
+        # Obtain the moisture delta value and determine if it should be added
+        # or substracted from the calculated one depending on the weather
+        # condition and the valve position.
+        if weather_condition == WEATHER_RAINY or valve_pos == 1:
+            # Calculate a variation delta. Max delta is 25.1 % (20 + 255 * 20)
+            delta = 20 + (int.from_bytes(os.urandom(1), "big") * 20) / 1000
+            add = True
+        elif weather_condition == WEATHER_SUNNY:
+            # Calculate a variation delta. Max delta is 12.04 % (10 + 255 * 8)
+            delta = 10 + (int.from_bytes(os.urandom(1), "big") * 8) / 1000
+            add = False
+        else:
+            # Calculate a variation delta. Max delta is 1.02 % (255 * 4)
+            delta = int.from_bytes(os.urandom(1), "big") * 4 / 1000
+            add = int.from_bytes(os.urandom(1), "big") > 128
+
+        # Apply the delta.
+        if add:
+            moisture += delta
+        else:
+            moisture -= delta
+
+        # Check limits.
+        if moisture < PERCENT_MIN:
+            moisture = PERCENT_MIN
+        elif moisture > PERCENT_MAX:
+            moisture = PERCENT_MAX
     else:
-        # Calculate a variation delta. Max delta is 1.02 % (255 * 4)
-        delta = int.from_bytes(os.urandom(1), "big") * 4 / 1000
-        add = int.from_bytes(os.urandom(1), "big") > 128
-
-    # Apply the delta.
-    if add:
-        moisture += delta
-    else:
-        moisture -= delta
-
-    # Check limits.
-    if moisture < PERCENT_MIN:
-        moisture = PERCENT_MIN
-    elif moisture > PERCENT_MAX:
-        moisture = PERCENT_MAX
+        try:
+            # Read the humidity from the I2C sensor.
+            moisture = sensor.read_humidity()
+        except OSError:
+            # If the read fails, change to simulation.
+            simulate_temp_hum = True
+            return get_moisture()
 
     return "%.2f" % moisture
 
@@ -531,6 +542,18 @@ def set_status_value(status_id, status_value):
         led_pin.value(valve_pos)
 
 
+def toggle_valve():
+    """
+    Toggles the status of the electronic valve.
+    """
+    global valve_pos
+
+    valve_pos = 1 if valve_pos == 0 else 0
+    print("- Toggling valve status to '{}'.".format("Open" if valve_pos == 1 else "Closed"))
+    # Turn on/off the LED.
+    led_pin.value(valve_pos)
+
+
 def get_mac():
     """
     Returns the XBee MAC address of the device.
@@ -585,7 +608,7 @@ def main():
     global sensor
     global identified
     global finished
-    global simulate_temp
+    global simulate_temp_hum
 
     print(" +-----------------------------------+")
     print(" | End-to-End IoT Agriculture Sample |")
@@ -596,6 +619,9 @@ def main():
         sensor = HDC1080(I2C(1))
     except AssertionError:
         pass
+
+    # Simulate temperature if no I2C sensor is detected.
+    simulate_temp_hum = sensor is None
 
     # Configure the Bluetooth advertisement.
     config_advertisement()
@@ -613,15 +639,21 @@ def main():
         # Sleep 100 ms.
         time.sleep_ms(100)
 
-        if sensor is not None:
-            # If the button has been pressed, swap the temperature source
-            # (reading or simulation).
-            if not was_btn_pressed and is_button_pressed():
-                simulate_temp = not simulate_temp
-                print("- Temperature source changed to %s"
-                      % ("simulation" if simulate_temp else "reading"))
+        # If the button has been pressed, toggle the electronic valve.
+        if not was_btn_pressed and is_button_pressed():
+            toggle_valve()
+            status_response = {
+                ITEM_OP: OP_STATUS,
+                ITEM_PROP: get_sensors_values()
+            }
+            print("- Reporting status data: %s" % status_response)
+            try:
+                xbee.transmit(xbee.ADDR_COORDINATOR,
+                              ujson.dumps(status_response))
+            except Exception as e:
+                print("  - Transmit failure: %s" % str(e))
 
-            was_btn_pressed = is_button_pressed()
+        was_btn_pressed = is_button_pressed()
 
         # Blink identification LED if necessary.
         if identified:
